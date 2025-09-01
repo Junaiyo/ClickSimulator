@@ -1,0 +1,278 @@
+/* Esse arquivo utiliza css tradicional, se expandir usar flexbox ou grid em novos arquivos*/
+/* eu achava que a estrutura seria simples, então não usei flexbox. Me arrrependo.*/
+/* o código só será transferido para layout moderno caso seja inviável manter esse css*/
+
+body {
+  background-color: #343541;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+}
+
+.guest-login {
+  width: 50%;
+  height: 42px;
+  background-color: red;
+  color: white;
+  border-radius: 10px;
+  border: none;
+}
+
+.ClickTitle {
+  color: yellow;
+}
+
+h1, h2 {
+  color: white;
+}
+
+.image {
+  position: absolute;
+}
+
+.click {
+  position: relative;
+  width: 90px;
+  height: 35px;
+  padding: 34px 25px 38px 25px;
+  border-radius: 50%;
+  border: none;
+  font-weight: bold;
+  font-size: 19px;
+  top: 280px;
+}
+
+.click img {
+  display: block;
+  position: relative;
+  bottom: 21px;
+  left: 9px;
+  bottom: 25px;
+}
+
+.top {
+  width: 100vw;
+  height: 55px;
+  background-color: #2e2f38;
+}
+
+.top button {
+  background-color: darkgreen;
+  color: white;
+  border: none;
+  width: 25%;
+  height: 66%;
+  margin-top: 2%;
+  margin-left: 2%;
+  border-radius: 15px;
+}
+
+.viewclicks {
+  font-size: 29px;
+  font-weight: bold;
+  color: red;
+  margin-top: 8%;
+  padding-bottom: 24px;
+}
+
+.anm {
+  position: absolute;
+  right: 48%;
+  color: red;
+  animation: shownumber 0.5s ease-in-out 1;
+}
+
+@keyframes shownumber {
+  0% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(0, -13px);
+  }
+  100% {
+    transform: translate(0, 30px);
+  }
+}
+
+.Loja {
+  display: block;
+  position: absolute;
+  background-color: #44444E;
+  z-index: 2;
+  top: -570px;
+  left: 0;
+  width: 90%;
+  transition: top 1.9s, left 1.9s;
+}
+
+.Loja button {
+  display: inline;
+  width: 46.7%;
+  margin: 2% 0 2% 0;
+  height: 33px;
+  background-color: #ff6b81;
+  color: white;
+  border: none;
+  border-right: 2px solid white;
+  border-left: 2px solid white;
+}
+
+.Loja-active {
+  top: 13%;
+  left: 6%;
+}
+
+.ArmorMenu {
+  width: 100%;
+}
+
+.ArmorMenu button {
+  background-color: #8b5cf6;
+}
+
+.ArmorMenu .b {
+  background-color: #3b82f6;
+}
+
+.ArmorMenu details {
+  margin: 2% 4% 2% 4%;
+}
+
+.ArmorMenu-active {
+  top: 100%;
+}
+
+.PeitoMenu details, .CalcaMenu details {
+  background-color: gray;
+}
+
+.calca {
+  top: 54%;
+  right: 32%;
+  width: 137px;
+  height: 109px;
+}
+
+.espada {
+  top: 48%;
+  right: 48%;
+  width: 100px;
+  height: 90px;
+}
+
+.peito {
+  right: 37%;
+  top: 48%;
+  width: 100px;
+  height: 80px;
+}
+
+.arco {
+  top: 49%;
+  right: 23%;
+  width: 100px;
+  height: 90px;
+}
+
+.InitialPerson {
+  top: 37%;
+  right: 25%;
+  width: 204px;
+  height: 204px;
+}
+
+.Mouse {
+  width: 36px;
+}
+
+.lojaitem {
+  height: 35px;
+  width: 42px;
+  right: 76%;
+  top: 22%;
+}
+
+.lojaitem-clicked {
+  height: 65px;
+  width: 80px;
+  right: 12%;
+  top: 27%;
+}
+
+@media (min-width: 768px) and (max-width: 799px) {
+  .InitialPerson {
+    right: 37%;
+  }
+  .click {
+    top: 370px;
+  }
+  .espada{top: 43.5%;}
+  .arco{right: 36%;top: 45.1%;}
+  .calca{right: 40.6%;top: 48%;}
+  .peito{right: 42.9%;top: 44.5%;}
+}
+
+@media (min-width: 800px) {
+  .calca {
+    right: 44.5%;
+    width: 165px;
+    top: 55%;
+  }
+  .peito {
+    right: 46.9%;
+    width: 102px;
+    height: 75px;
+    top: 51%;
+  }
+  .espada {
+    top: 50%;
+    right: 50%;
+  }
+  .arco {
+    top: 51%;
+    right: 43.5%;
+  }
+  .InitialPerson {
+    right: 43.4%;
+    top: 41%;
+  }
+  .click {
+    margin-top: 10%;
+    top: 190px;
+  }
+
+  .top button {
+    height: 50%;
+    margin-top: 1%;
+  }
+
+  .Loja {
+    top: -1000px;
+    transition: top 2.2s, left 2.2s;
+  }
+
+  .Loja-active {
+    top: 9.7%;
+  }
+
+  .ArmorMenu-active {
+    top: 100%;
+  }
+
+  .lojaitem {
+    top: 26%;
+  }
+
+  .lojaitem {
+    right: 84%;
+    width: 52px;
+    height: 45px;
+    top: 17%;
+  }
+
+  .lojaitem-clicked {
+    width: 20%;
+    height: 45%;
+  }
+}
