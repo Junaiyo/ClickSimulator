@@ -7,7 +7,7 @@ export const RendPerso = (props) => {
   return (
     <>
       {renders && renders.map((item) => {
-      return <img src={`/src/assets/${item[0]}`} className={`image ${item[1]}`}/>
+      return <img src={`assets/${item[0]}`} className={`image ${item[1]}`}/>
       })}
     </>
   )

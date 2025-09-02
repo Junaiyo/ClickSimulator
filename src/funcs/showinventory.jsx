@@ -124,7 +124,7 @@ export const ShowInventory = (props) => {
       <details onToggle={handleItem} className="showitems" id="shItm">
         <summary>
           {item}
-          <img src={`/src/assets/${img}`} className={`image ${isClicked ? "inventoryitem-clicked" : "inventoryitem"}`}/>
+          <img src={`assets/${img}`} className={`image ${isClicked ? "inventoryitem-clicked" : "inventoryitem"}`}/>
           
         </summary>
         
