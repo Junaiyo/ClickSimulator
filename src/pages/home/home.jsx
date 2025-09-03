@@ -126,10 +126,12 @@ export const Home = () => {
       {showClicks && <p className="anm">+{1 * multiplier}</p>}
       <h3 className="viewclicks">Clicks: {clicks}</h3>
       <h2>Seu personagem:</h2>
+      <div className="rendImages">
       <img src="assets/perso.png" className="image InitialPerson" />
       {showPerso && <RendPerso renders={armorsEquiped}/>}
+      </div>
       <button className="click" onClick={handleClick}>
-        <img src="assets/mouse.png" alt="click" className="Mouse"/>
+        <img src="/assets/mouse.png" alt="click" className="Mouse"/>
       </button>
     </div>
   )
