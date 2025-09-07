@@ -140,7 +140,7 @@ export const Home = () => {
       {showPerso && <RendPerso renders={armorsEquiped}/>}
       </div>
       <button className="click" onClick={handleClick}>
-        <img src="/assets/mouse.png" alt="click" className="Mouse"/>
+        <img src="assets/mouse.png" alt="click" className="Mouse"/>
       </button>
     </div>
   )
