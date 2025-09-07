@@ -1,0 +1,23 @@
+
+.logs .btt {
+  background-color: red;
+  margin-left: 5em;
+  border-left: 0.1em solid white;
+  border-right: 0.1em solid white;
+  margin-top: 2em;
+}
+
+.showlogs {
+  background-color: #111;
+  padding: 0.7em;
+  border: 0.5em solid white;
+}
+
+.showlogs .arrow {
+  font-size: 2em;
+  color: white;
+}
+
+.showlogs .msgLog {
+  color: white;
+}

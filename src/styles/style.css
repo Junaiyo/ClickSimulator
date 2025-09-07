@@ -20,6 +20,13 @@ body {
   border: none;
 }
 
+.changelogs {
+  display: block;
+  background-color: green;
+  margin-top: 4.5%;
+  margin-left: 25%;
+}
+
 .ClickTitle {
   color: yellow;
 }
@@ -230,7 +237,7 @@ h1, h2 {
   }
   .click {
     position: relative;
-    transform: translate(0, -140%);
+    transform: translate(0, -180%);
   }
   .calca {
     width: 165px;
@@ -270,7 +277,7 @@ h1, h2 {
   }
 
   .Loja {
-    top: -1005px;
+    top: -1245px;
     transition: top 2.2s, left 2.2s;
   }
 

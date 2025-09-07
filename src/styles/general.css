@@ -5,6 +5,7 @@
 .statusBack {
   background-color: #565869;
   margin: 5% 5%;
+  border: none;
 }
 
 .statusBack button {
@@ -13,13 +14,35 @@
   margin: 2% 1%;
 }
 
+.statusBack .InfoRebirth {
+  background-color: rgb(255, 200, 0);
+  border-radius: 5px;
+  width: 20vw;
+  height: 3em;
+  font-weight: bold;
+}
+
+.statusBack .InfoRebirth:hover {
+  background-color: orange;
+}
+
 .statusBack button:hover {
   background-color: rgb(210, 0, 0);
 }
 
+.statusBack .ShowRebirth {
+  background-color: yellow;
+  border: 0.8vmin solid white;
+  margin: 2% 3%;
+}
+
+.statusBack .ShowMessageRB {
+  color: white;
+}
+
 .status {
   padding-top: 1%;
-  padding-bottom: 3%;
+  padding-bottom: 2%;
   color: white;
   border-bottom: 2px solid white;
   text-align: center;
@@ -92,8 +115,6 @@
   right: 76%;
   top: 15%;
 }
-
-
 
 @media (min-width: 768px) {
   .showitems {

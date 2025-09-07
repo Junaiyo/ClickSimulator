@@ -11,6 +11,7 @@ export const Login = () => {
       <h2>Login</h2>
       <h2>Sistema de login inacabado</h2>
       <button className="guest-login" onClick={() => {navigate('/home')}}>Entrar como visitante</button>
+      <button className="guest-login changelogs" onClick={()=>navigate('/change-logs')}>Change logs</button>
     </div>
   )
 }

@@ -48,6 +48,7 @@ export const ShowInventory = (props) => {
 
   const handleItem = () => {
     setIsClicked(!isClicked);
+    setErrorUpgrade(null);
   }
 
   const handleEquip = () => {
@@ -115,9 +116,7 @@ export const ShowInventory = (props) => {
     }
   }
 
-  setInterval(() => {
-    setErrorUpgrade(null);
-  }, 5000)
+  
 
   return (
     <div>

@@ -101,6 +101,15 @@ export const Home = () => {
     
     setArmorsEquiped((prev) => [...prev, [item, especify]]);
   }
+
+  const MakeRB = () => {
+    setArmas([]);
+    setArmaduras([]);
+    setClicks(0);
+    setArmorsEquiped([]);
+    setShowPerso(false);
+    setMultiplier(1);
+  }
   
   return (
     <div>
@@ -109,7 +118,7 @@ export const Home = () => {
       
       <LojaMenu buttons={[<button value="Armas" onClick={(e) => handleAll("InvArmadura", "InvArma", "Inv", "ArmorMenu-active", e)}>Armas</button>, <button value="Armaduras" onClick={(e)=>handleAll("InvArma", "InvArmadura", "Inv", "ArmorMenu-active", e)}>Armaduras</button>]}components={[<Inventory armaduras={armaduras} armas={armas} improvemulti={ImproveMultiplier} aproveupdate={UpdateItem} showPerson={handleShowPerso} handleEquip={improveEquiped} armorsEquiped={armorsEquiped} setArmorsEquiped={setArmorsEquiped}/>]} id="Inv"/>
       
-      <LojaMenu components={[<Status status={[`Clicks: ${clicks}`, `Total de clicks: ${totalClicks}`, `Clicks gastos: ${spentClicks}`, `Multiplicador: ${multiplier}`]}/>]} id="Status"/>
+      <LojaMenu components={[<Status status={[`Clicks: ${clicks}`, `Total de clicks: ${totalClicks}`, `Clicks gastos: ${spentClicks}`, `Multiplicador: ${multiplier}`, `Rebirths: ${rebirths}`, `Super Rebirths: ${spr}`]} rebirths={rebirths} spr={spr} setRebirth={setRebirths} setSpr={setSpr} clicks={clicks} setspentclicks={setSpentClicks} improvemultiplier={ImproveMultiplier} multiplier={multiplier} setRB={MakeRB}/>]} id="Status"/>
       
       <div className="top">
         
@@ -131,7 +140,7 @@ export const Home = () => {
       {showPerso && <RendPerso renders={armorsEquiped}/>}
       </div>
       <button className="click" onClick={handleClick}>
-        <img src="assets/mouse.png" alt="click" className="Mouse"/>
+        <img src="/assets/mouse.png" alt="click" className="Mouse"/>
       </button>
     </div>
   )
