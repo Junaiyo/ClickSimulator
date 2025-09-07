@@ -10,7 +10,6 @@ body {
   margin: 0;
 }
 
-
 .guest-login {
   width: 50%;
   height: 42px;
@@ -48,7 +47,7 @@ h1, h2 {
   border: none;
   font-weight: bold;
   font-size: 19px;
-  top: 280px;
+  top: 17vh;
 }
 
 .click img {
@@ -108,7 +107,7 @@ h1, h2 {
   position: absolute;
   background-color: #44444E;
   z-index: 2;
-  top: -580px;
+  top: -680px;
   left: 0;
   width: 90%;
   transition: top 1.9s, left 1.9s;
@@ -155,39 +154,42 @@ h1, h2 {
   background-color: gray;
 }
 
-.calca {
-  top: 54%;
-  right: 32%;
-  width: 137px;
-  height: 109px;
-}
-
-.espada {
-  top: 48%;
-  right: 48%;
-  width: 100px;
-  height: 90px;
-}
-
-.peito {
-  right: 37%;
-  top: 48%;
-  width: 100px;
-  height: 80px;
-}
-
-.arco {
-  top: 49%;
-  right: 23%;
-  width: 100px;
-  height: 90px;
+.rendImages {
+  position: relative;
+  width: 40vw;
+  max-width: 300px;
+  margin: 0 auto;
 }
 
 .InitialPerson {
+  width: 100%;
+  height: auto;
+  display: block;
+  position: relative;
+}
+
+.espada {
+  top: 36%;
+  right: 5%;
+  width: 45%;
+}
+
+.arco {
+  top: 38%;
+  left: 9%;
+  width: 45%;
+}
+
+.peito {
   top: 37%;
-  right: 25%;
-  width: 204px;
-  height: 204px;
+  left: 32%;
+  width: 41%;
+}
+
+.calca {
+  bottom: -11%;
+  left: 22%;
+  width: 61%;
 }
 
 .Mouse {
@@ -208,69 +210,7 @@ h1, h2 {
   top: 27%;
 }
 
-@media (min-width: 768px) and (max-width: 799px) {
-  
-  .InitialPerson {
-    right: 37%;
-  }
-  .click {
-    top: 370px;
-  }
-  .espada{top: 43.5%;}
-  .arco{right: 36%;top: 45.1%;}
-  .calca{right: 40.6%;top: 48%;}
-  .peito{right: 42.9%;top: 44.5%;}
-}
-
-
 @media (min-width: 800px) {
-  .rendImages {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    position: relative;
-  }
-
-  .rendImages img {
-    position: static;
-  }
-  .click {
-    position: relative;
-    transform: translate(0, -180%);
-  }
-  .calca {
-    width: 165px;
-    top: 55%;
-    margin-top: -2.5em;
-    margin-right: -0.3em;
-  }
-  .peito {
-    width: 102px;
-    height: 75px;
-    margin-top: -8.3em;
-    margin-right: 0.2em;
-  }
-  .espada {
-    top: 50%;
-    margin-top: -8.8em;
-    margin-right: 5.9em;
-  }
-  .arco {
-    top: 51%;
-    margin-top: -5.2em;
-    margin-right: -5.9em;
-  }
-  .InitialPerson {
-    margin-right: 1%;
-    top: 41%;
-    width: 250px;
-  }
-  .click {
-    margin-top: 10%;
-    top: 190px;
-  }
-
   .top button {
     height: 50%;
     margin-top: 1%;
