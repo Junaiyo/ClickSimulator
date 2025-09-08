@@ -18,7 +18,7 @@ export const Status = (props) => {
   }
 
   const calcRebirth = () => {
-    const calc1 = rebirths === 0 ? 100000 : Math.floor(100000 + 100000 * rebirths - ((13 * 10) / 100)); 
+    const calc1 = rebirths === 0 ? 100000 : Math.floor(100000 + 100000 * rebirths - ((13 * 100000) / 100)); 
     const calc2 = spr === 0 ? 5 : Math.floor(5 * spr - ((-60 * 5) / 100))
     
     setReqRb(calc1);
