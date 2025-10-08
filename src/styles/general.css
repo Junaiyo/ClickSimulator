@@ -1,6 +1,4 @@
-/* Esse arquivo utiliza css tradicional, se expandir usar flexbox ou grid em novos arquivos*/
-/* eu achava que a estrutura seria simples, então não usei flexbox. Me arrrependo.*/
-/* o código só será transferido para layout moderno caso seja inviável manter esse css*/
+/* esse arquivo engloba os componentes restantes de funcionamento da página home que não foram incluídos no style.css */
 
 .statusBack {
   background-color: #565869;
@@ -86,6 +84,33 @@
 
 .showitems button:hover {
   background-color: green;
+}
+
+.showitems .Visible {
+  border-radius: 15px;
+  transition: background-color 1s;
+}
+
+.showitems .Visible:hover {
+  background-color: darkgreen;
+}
+
+.showitems .VisibleFalse {
+  transition: background-color 1s;
+  background-color: red;
+}
+
+.showitems .VisibleFalse:hover {
+  background-color: red;
+}
+
+.showitems .sellItem {
+  background-color: rgb(255, 180, 0);
+}
+
+.showitems .sellItem:hover {
+  transition: background-color 0.9s;
+  background-color: rgb(255, 200, 0);
 }
 
 .MaxLevel {

@@ -5,6 +5,8 @@ import {HashRouter, Route, Routes, Navigate} from "react-router-dom";
 import {Login} from "./pages/login";
 import {Home} from "./pages/home";
 import {ChangeLogs} from "./pages/changelogs";
+import {Roleta} from "./pages/games/roleta";
+import {Adivinha} from "./pages/games/advinha";
 
 const Index = () => {
     return (
@@ -14,6 +16,8 @@ const Index = () => {
           <Route path="/login" element={<Login/>}/>
           <Route path="/home" element={<Home/>}/>
           <Route path="/change-logs" element={<ChangeLogs/>}/>
+          <Route path="/roleta" element={<Roleta/>}/>
+          <Route path="/adivinha" element={<Adivinha/>}/>
         </Routes>
       </HashRouter>
     )

@@ -1,0 +1,59 @@
+.adv {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  width: 75vw;
+}
+
+.adv .item {
+  background-color: #333;
+  border: 2px solid white;
+}
+
+img {
+  width: 10vmax;
+  height: 8vmax;
+}
+
+h3 {
+  margin-top: 1em;
+  margin-bottom: 2em;
+  color: white;
+}
+
+input {
+  border-radius: 15px;
+  border: none;
+  width: 24.5vmax;
+  height: 7vmax;
+  padding-left: 1em;
+}
+
+.advgame {
+  padding-bottom: 1.8em;
+}
+
+.animation {
+  user-select: none;
+}
+
+.animation:active {
+  animation: rainb 10s ease-in-out infinite;
+}
+
+@keyframes rainb {
+  0% { color: red}
+  10% { color: orange}
+  20% { color: yellow}
+  30% { color: green}
+  40% { color: black}
+  50% { color: blue}
+  60% { color: purple}
+  70% { color: pink}
+  80% { color: gray}
+  90% { color: brown}
+  100% {color: red}
+}
+
+.gameconfirm {
+  margin-top: 1em;
+}

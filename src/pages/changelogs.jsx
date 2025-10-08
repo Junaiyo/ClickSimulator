@@ -4,8 +4,8 @@ import {useNavigate} from "react-router-dom";
 
 export const ChangeLogs = () => {
   const navigate = useNavigate();
-  const versions = ["Beta 1", "Beta1.5"];
-  const vLogs = [["versão inicial"], ["sistema de rebirth", "change logs"]]
+  const versions = ["Beta 1", "Beta1.5", "Beta 2"];
+  const vLogs = [["versão inicial"], ["sistema de rebirth", "change logs"], ["sistema de jogos", "sistema de vender armaduras", "sistema de visibilidade de armaduras equipadas", "save automático (a cada 10 minutos ou ação importante)", "limite de inventário (expansível futuramente)"]]
   const [number, setNumber] = useState(0);
   
   return (

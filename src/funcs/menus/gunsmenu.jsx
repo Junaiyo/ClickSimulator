@@ -12,13 +12,13 @@ export const GunsMenu = (props) => {
       
       <div className="Loja ArmorMenu PeitoMenu" id="EspadaMenu">
 
-        <ShowItems item="Espada de madeira" imgName="espada1.png" price={5} multiplier={2} rebirth={0} spr={0} handleBuy={props.handleBuy} success={props.success} type="Armas" setsuccess={props.setsuccess} especify="espada"/>
+        <ShowItems item="Espada de madeira" imgName="espada1.png" price={50} multiplier={2} rebirth={0} spr={0} handleBuy={props.handleBuy} success={props.success} type="Armas" setsuccess={props.setsuccess} especify="espada"/>
         
       </div>
       
       <div className="Loja ArmorMenu CalcaMenu" id="ArcoMenu">
 
-        <ShowItems item="Arco de madeira" imgName="arco1.png" setsuccess={props.setsuccess} price={5} multiplier={2} rebirth={0} spr={0} handleBuy={props.handleBuy} success={props.success} type="Armas" especify="arco"/>
+        <ShowItems item="Arco de madeira" imgName="arco1.png" setsuccess={props.setsuccess} price={50} multiplier={2} rebirth={0} spr={0} handleBuy={props.handleBuy} success={props.success} type="Armas" especify="arco"/>
         
       </div>
       

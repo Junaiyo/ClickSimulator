@@ -1,0 +1,72 @@
+.op-item {
+  background-color: black;
+  border: 0.4em solid white;
+  width: 15.3em;
+  height: 18.5em;
+  position: absolute;
+  top: 20vh;
+  left: 17vw;
+}
+
+.op-item h2 {
+  color: white;
+  font-weight: bold;
+  margin-top: 4em;
+  font-size: 1.8em;
+}
+
+.Comum {
+  background-color: gray;
+}
+.Comum span, .Lendário span {
+  color: white;
+}
+
+.Raro {
+  background-color: #3694ff;
+}
+.Raro span {
+  color: yellow;
+}
+
+.Épico {
+  background-color: purple;
+}
+.Épico span {
+  color: red
+}
+
+.Lendário {
+  background-color: yellow;
+}
+.bordaLegend {
+  border: 0.4em solid transparent;
+  animation: rainbowBorder 4.5s ease-in-out infinite;
+}
+
+@keyframes rainbowBorder {
+  0% { border-color: red}
+  10% { border-color: orange}
+  20% { border-color: yellow}
+  30% { border-color: green}
+  40% { border-color: black}
+  50% { border-color: blue}
+  60% { border-color: purple}
+  70% { border-color: pink}
+  80% { border-color: gray}
+  90% { border-color: brown}
+  100% {border-color: red}
+}
+
+.rewardMsg {
+  color: white;
+  font-size: 1.4em;
+}
+
+@media (min-width: 500px) {
+  .op-item {
+    width: 40vw;
+    height: 50%;
+    left: 31vw;
+  }
+}
