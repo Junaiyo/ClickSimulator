@@ -257,6 +257,9 @@ export const ShowInventory = (props) => {
     const val = itemsUpgrades[item]["InitialPrice"];
     const val2 = val - ((20 * val) / 100);
     props.setclicks((prev) => prev + val2);
+    const newInv = {...props.invcount};
+    newInv[especify] -= 1;
+    props.setinvcount(newInv);
     if (itemType === "armadura") {
       for (let i = 0; i<newArr2.length; i++) {
         if (newArr2[i][0] === item) {
