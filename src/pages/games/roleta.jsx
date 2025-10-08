@@ -21,10 +21,11 @@ export const Roleta = () => {
   const [msg, setMsg] = useState();
   
   const gameData = JSON.parse(localStorage.getItem("gameData"));
-  const [clicks, _] = useState(gameData ? gameData.clicks : 0)
+  const [clicks, setClicks] = useState(gameData ? gameData.clicks : 0)
 
   const updateClicks = (price) => {
     gameData.clicks = clicks-price;
+    setClicks(clicks-price);
     localStorage.setItem("gameData", JSON.stringify(gameData))
   }
 
@@ -34,6 +35,7 @@ export const Roleta = () => {
   
   const handleBuy = (box) => {
     const price = boxPrices[boxes.indexOf(box)];
+    updateClicks(price);
     if (price > clicks) {
       setMsg("Clicks insuficientes");
       return;
@@ -45,7 +47,6 @@ export const Roleta = () => {
     setMsg("Compra realizada com sucesso");
     setOpenBox(true);
     setOpBox(box)
-    updateClicks(price);
     setRolling(true);
   }
 
