@@ -32,10 +32,6 @@ input {
   padding-bottom: 1.8em;
 }
 
-.animation {
-  user-select: none;
-}
-
 .animation:active {
   animation: rainb 10s ease-in-out infinite;
 }
@@ -55,5 +51,10 @@ input {
 }
 
 .gameconfirm {
+  display: block;
+  background-color: rgba(235, 0, 0, 0.8);
   margin-top: 1em;
+  margin-bottom: 5em;
+  margin-left: auto;
+  margin-right: auto;
 }

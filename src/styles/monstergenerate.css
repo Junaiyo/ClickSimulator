@@ -1,0 +1,103 @@
+.monsterImage {
+  width: 47%;
+  height: 40%;
+}
+
+.monsterImageExp {
+  height: 54%;
+  width: 50%;
+}
+
+.monster {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: center;
+}
+
+.showHealth {
+  font-size: 1.5em;
+  width: 40vw;
+  height: 6.5vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.showHealth p {
+  position: absolute;
+  color: white;
+}
+
+.monsterHealthBar {
+  width: 100%;
+  height: 100%;
+  appearance: none;
+  border-radius: 20px;
+  border: 2px solid white;
+  background-color: green;
+}
+
+.monsterHealthBar::-webkit-progress-value {
+  background-color: red;
+  border-radius: 20px;
+}
+
+.monsterHealthBar::-webkit-progress-bar {
+  border-radius: 20px;
+  background-color: green;
+}
+
+.monsterHealthBar::-moz-progress-bar {
+  background-color: red;
+  border-radius: 20px;
+}
+
+.sword {
+  transform: rotate(45deg);
+  height: 15vmax;
+}
+
+.attackButton {
+  margin-bottom: -1.9vmax;
+  background-color: transparent;
+  border: none;
+}
+
+.attackButton > p {
+  color: white;
+  position: absolute;
+  font-size: 1.5em;
+  margin-top: -1.5vmin;
+}
+
+.showRewards > p {
+  color: white;
+  position: absolute;
+  font-size: 1.1em;
+  margin-left: -10vmin;
+  animation: jumping 520ms ease-out infinite;
+}
+
+.showRewards p span {
+  color: yellow;
+  font-weight: bold;
+}
+
+.showRewards > p:last-child {
+  margin-top: 12vmin;
+}
+
+@keyframes jumping {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+  100% {
+    transform: translateY(25px);
+  }
+}

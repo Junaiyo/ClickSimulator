@@ -10,6 +10,19 @@
   background-color: red;
   border-radius: 15px;
   margin: 2% 1%;
+  width: 40%;
+}
+
+.statusBack .selectExpand {
+  background-color: rgb(255, 120, 0);
+}
+.statusBack .selectExpand:hover {
+  background-color: rgb(255, 165, 0);
+}
+
+.selectCategory {
+  color: white;
+  text-shadow: 0px 1px white;
 }
 
 .statusBack .InfoRebirth {
@@ -32,6 +45,13 @@
   background-color: yellow;
   border: 0.8vmin solid white;
   margin: 2% 3%;
+}
+
+.decorSpan {
+  color: red;
+  border-bottom: 0.2em solid white;
+  font-weight: bold;
+  text-transform: capitalize;
 }
 
 .statusBack .ShowMessageRB {

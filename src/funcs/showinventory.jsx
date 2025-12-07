@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import "/src/styles/general.css";
 
 export const ShowInventory = (props) => {
-  const {item, imgName, especify, levels, alterLevels} = props;
+  const {item, imgName, especify, levels, alterLevels, alterEquiped} = props;
   const [isClicked, setIsClicked] = useState(false);
   const [equiped, setEquiped] = useState(false);
   const [level, setLevel] = useState(0)
@@ -10,7 +10,7 @@ export const ShowInventory = (props) => {
   const [img, setImg] = useState(imgName);
   const [errorEquip, setErrorEquip] = useState(false);
   const [errorUpgrade, setErrorUpgrade] = useState(null);
-  const [itemType, _] = useState(() => {
+  const [itemType, setItemType] = useState(() => {
     if (especify === "peito" || especify === "calca") {
       return "armadura";
     }
@@ -99,6 +99,9 @@ export const ShowInventory = (props) => {
 
   const handleEquip = () => {
     setEquiped(true);
+    
+    alterEquiped(item, true);
+    
     let initial = itemsUpgrades[item]["InitialMulti"];
     const tryEquip = props.handleEquip(img, especify);
     if (tryEquip) {
@@ -122,11 +125,11 @@ export const ShowInventory = (props) => {
     }, 900)
   }
 
-  const ModifyImage = () => {
+  const ModifyImage = (extra=false) => {
     const newArr = [...props.armorsEquiped];
     for (let i = 0; i < newArr.length; i++) {
       if (newArr[i][1] === especify) {
-        newArr[i][0] = `${especify}${itemsUpgrades[item]["Type"]}.${level+1}.png`;
+        newArr[i][0] = `${especify}${itemsUpgrades[item]["Type"]}.${extra ? level+2 : level+1}.png`;
         props.setArmorsEquiped(newArr);
       }
     }
@@ -138,18 +141,26 @@ export const ShowInventory = (props) => {
     if (aprove) {
       setErrorUpgrade(null);
       setLevel((prev) => prev + 1);
-      alterLevels(item, 1);
       props.improvemulti(itemsUpgrades[item]["UpgradesMultipliers"][level]);
       setImg(itemsUpgrades[item]["UpgradesPngs"][level]);
+
+      let willbemax = false;
       if (level === itemsUpgrades[item]["MaxLevel"]) {
         setMax(true);
+        willbemax = true;
       }
+      alterLevels(item, 1, willbemax, itemsUpgrades[item]["UpgradesPngs"][level], equiped, itemType);
       ModifyImage();
     }
   }
 
+  
+
   const handleDesequip = () => {
     setEquiped(false);
+
+    alterEquiped(item, false);
+    
     let cumulator = 0;
     let newArmors;
     const newArr = [...props.armorsEquiped];
@@ -198,60 +209,29 @@ export const ShowInventory = (props) => {
   const handleSell = () => {
     const newArr = [...props.armas];
     const newArr2 = [...props.armaduras];
-    alterLevels(item, -levels[item]);
-    setMax(false);
-    setImg(() => {
-      if (itemType === "armadura") {
-        const armors = props.armaduras;
-        let myArmor;
-        for (let i = 0; i < armors.length; i++) {
-          if (armors[i][0] === item) {
-            myArmor = armors.indexOf(armors[i])+1;
-          }
-        }
-        let nItem = armors[myArmor][0];
-        let nIN = itemsUpgrades[nItem]["Type"];
-        let nSpec = armors[myArmor][3];
-        let newImg = levels[nItem] === 0 ? `${nSpec}${nIN}.png` : `${nSpec}${nIN}.${levels[nItem]}.png`
-        verifyMax(nItem);
-        verifyEquiped(nSpec);
-        setLevel(levels[nItem]);
-        
-        return newImg;
-      } else {
-        const armors = props.armas;
-        let myArmor;
-        for (let i = 0; i < armors.length; i++) {
-          if (armors[i][0] === item) {
-            myArmor = armors.indexOf(armors[i])+1;
-          }
-        }
-        let nItem = armors[myArmor][0];
-        let nIN = itemsUpgrades[nItem]["Type"];
-        let nSpec = armors[myArmor][3];
-        let newImg = levels[nItem] === 0 ? `${nSpec}${nIN}.png` : `${nSpec}${nIN}.${levels[nItem]}.png`
-        verifyMax(nItem);
-        verifyEquiped(nSpec);
-        setLevel(levels[nItem]);
-        
-        return newImg;
-      }
-    })
 
-    const verifyMax = (nItem) => {
-      if (levels[nItem]-1 === itemsUpgrades[nItem]["MaxLevel"]) {
-          setMax(true);
+    props.resetItem(item);
+
+
+    const select = itemType === "armadura" ? newArr2 : newArr;
+    if (select.length > 1) {
+    let index = 0;
+    let newitem = "not find";
+    for (let i of select) {
+      if (i[0] === item) {
+        index = select.indexOf(i)+1;
+        newitem = select[index];
+        break;
       }
     }
+    let newite = newitem[0];
 
-    const verifyEquiped = (nSpec) => {
-      const equipeds = props.armorsEquiped;
-      for (let i = 0; i < equipeds.length; i++) {
-        if (equipeds[i][1] === nSpec ) {
-          setEquiped(true);
-          break;
-        }
-      }
+      
+    setLevel(levels[newite]["level"]);
+    setImg(levels[newite]["img"]);
+    setMax(levels[newite]["max"]);
+    setEquiped(levels[newite]["equiped"]);
+    setItemType(levels[newite]["itemType"])
     }
     
     const val = itemsUpgrades[item]["InitialPrice"];
@@ -260,6 +240,9 @@ export const ShowInventory = (props) => {
     const newInv = {...props.invcount};
     newInv[especify] -= 1;
     props.setinvcount(newInv);
+
+    
+    
     if (itemType === "armadura") {
       for (let i = 0; i<newArr2.length; i++) {
         if (newArr2[i][0] === item) {
@@ -280,15 +263,6 @@ export const ShowInventory = (props) => {
     itemType === "armadura" ? data.armaduras = newArr2 : data.armas = newArr;
     localStorage.setItem("gameData", JSON.stringify(data));
   }
-
-  useEffect(() => {
-    const data = JSON.parse(localStorage.getItem("gameData"));
-    for (const i of data.armorsEquiped) {
-      if (i[1] === especify) {
-        setEquiped(true);
-      }
-    }
-  }, []);
 
   return (
     <div>

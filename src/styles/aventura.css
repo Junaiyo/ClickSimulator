@@ -1,0 +1,118 @@
+:root {
+  --radius: 20px;
+  --border: 0.2em solid white;
+}
+
+.island {
+  width: 97vw;
+  height: 80vh;
+  background-size: 100vw 100vh;
+  background-repeat: no-repeat;
+  background-image: url("assets/islandbackground1.jpeg");
+  margin-top: 2.5vh;
+  margin-bottom: 5vh;
+}
+
+.islandsHotBar {
+  border: 0.2em solid black;
+}
+
+.islandHotBarSelected {
+  border: 0.2em solid red;
+}
+
+.showBalance {
+  color: red;
+  font-size: 2em;
+  display: inline-block;
+  transform: translate(-20%, -48%);
+  position: absolute;
+}
+
+.imgCoin {
+  width: 4em;
+  height: 4em;
+  display: inline-block;
+  position: absolute;
+  margin-left: -22vw;
+}
+
+.ShowCoins {
+  background-color: #000000;
+  margin-bottom: 0.3em;
+  border-radius: var(--radius);
+  border: var(--border);
+  height: 4em;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.showIsland {
+  margin-bottom: 1vmax;
+}
+
+.lock {
+  
+}
+
+.lockerIsland {
+  position: absolute;
+  margin-left: -18.5%;
+  margin-top: 0.4vmin;
+  width: 4em;
+  height: 4em;
+  pointer-events: none;
+}
+
+.islandImgHotBar {
+  width: 20vw;
+  height: 10vh;
+}
+
+.buyIsland {
+  width: 48%;
+  height: 3em;
+  border-radius: var(--radius);
+  background-color: darkgreen;
+  border: var(--border);
+  color: white;
+  transform: translate(0, -45%);
+  margin-bottom: -1em;
+  font-weight: bold;
+}
+
+.buyIsland:active {
+  background-color: rgb(0, 160, 0);
+  transition: background-color 0.4s;
+}
+
+.offerIsland {
+  transform: translate(0, -12%);
+}
+
+.offerIsland .decorCoins {
+  background-color: #ff0000;
+  width: 52%;
+  margin-left: auto;
+  margin-right: auto;
+  border: var(--border);
+  border-radius: var(--radius);
+  height: 2.3em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.lowerCoin {
+  height: 94%;
+  width: 37%;
+  margin-left: 2.5vmax;
+}
+
+.returnIsland {
+  background-color: black;
+  border: var(--border);
+  font-weight: bold;
+  font-size: 1.1em;
+}

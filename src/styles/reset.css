@@ -1,0 +1,17 @@
+.reset {
+  display: flex;
+  flex-direction: column;
+}
+
+.reset button {
+  background-color: red;
+  color: white;
+  border: none;
+  margin-bottom: 4vmax;
+  height: 5vmax;
+}
+
+.reset p {
+  color: white;
+  font-size: 2.5vmax;
+}

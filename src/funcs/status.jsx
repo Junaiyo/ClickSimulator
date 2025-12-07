@@ -9,12 +9,92 @@ export const Status = (props) => {
   const [showMessage, setShowMessage] = useState("");
   const [buff, setBuff] = useState();
   const [buffSp, setBuffSp] = useState();
-
+  
   const rebirth = () => {
     setshowrebirth(!showrebirth);
     setShowMessage("");
+    setShowExpand(false);
+    setExpand(false);
+    setCapInv(false);
     calcRebirth();
     calcBuff();
+  }
+
+  const [expand, setExpand] = useState(false);
+  const [reqInv, setReqInv] = useState({
+    "peito": 0,
+    "calca": 0,
+    "espada": 0,
+    "arco": 0
+  });
+  const [expansions, setExpansions] = useState({
+    "peito": 0,
+    "calca": 0,
+    "espada": 0,
+    "arco": 0,
+  });
+  const [showExpand, setShowExpand] = useState(false);
+  const categories = ["peito", "calca", "espada", "arco"];
+  
+  const expandInv = () => {
+    setExpand(!expand);
+    calcInv();
+    setShowMessage("");
+    setShowExpand(false);
+    setCapInv(false);
+    setshowrebirth(false);
+  }
+  
+  const calcInv = () => {
+    
+    const prev = {...reqInv};
+    let cumulator = 0;
+    for (const key in prev) {
+      if (prev[key] === 0) {
+        cumulator += 1;
+        prev[key] = 1000;
+      }
+    }
+    if (cumulator > 0) {
+      setReqInv(prev);
+      return;
+    }
+    advanceCalc(prev);
+  }
+
+  const advanceCalc = (prev2) => {
+    const prev = {...expansions}
+    for (const key in prev) {
+      if (prev[key] > 0) {
+      prev2[key] = Math.floor(1000 + 1000 * prev[key] - ((11 * 1000) / 100));
+      }
+    }
+    setReqInv(prev2);
+  }
+
+  const makeExpand = () => {
+    setShowExpand(!showExpand);
+    setCapInv(false);
+    setExpand(false);
+    setshowrebirth(false);
+    setShowMessage("");
+  }
+
+  const doExpand = (e) => {
+    setShowMessage("");
+    let val = e.target.value;
+    setShowMessage("Expansão realizada com sucesso");
+    if (clicks < reqInv[val]) {
+      setShowMessage("Clicks insuficientes");
+      return;
+    }
+
+    const prevv = {...expansions};
+    prevv[val] += 1;
+    setExpansions(prevv);
+    props.setspentclicks((prev) => prev + reqInv[val]);
+    props.setclicks((prev) => prev - reqInv[val]);
+    props.expinv(val, prevv, reqInv[val]);
   }
 
   const calcRebirth = () => {
@@ -59,11 +139,30 @@ export const Status = (props) => {
   useEffect(() => {
     calcRebirth();
     calcBuff();
+    calcInv();
   }, []);
   useEffect(() => {
     calcRebirth();
     calcBuff();
-  }, [rebirths, spr]);
+    calcInv();
+  }, [rebirths, spr, expansions]);
+
+  const [CapInv, setCapInv] = useState(false);
+
+  const showCapInv = () => {
+    setCapInv(!CapInv);
+    setShowExpand(false);
+    setExpand(false);
+    setshowrebirth(false);
+    setShowMessage("");
+  }
+
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem("gameData"));
+    if (data.expansions) {
+      setExpansions(data.expansions);
+    }
+  }, [])
 
   
   return (
@@ -71,7 +170,10 @@ export const Status = (props) => {
       {status && status.map((stat) => <p className="status">{stat}</p>)}
       <button onClick={makeRebirth}>Rebirth</button>
       <button onClick={makeSpRebirth}>Super Rebirth</button>
+      <button onClick={showCapInv}>Capacidade inventário</button>
+      <button onClick={makeExpand}>Expandir inventário</button>
       <button className="InfoRebirth" onClick={rebirth}>Requisitos rebirths</button>
+      <button className="InfoRebirth" onClick={expandInv}>Requisitos inventário</button>
       {showrebirth &&
         <p className="ShowRebirth">Requisito próximo Rb: {reqRb}
           <br/>
@@ -82,7 +184,24 @@ export const Status = (props) => {
           Benefício: {buffSp}+ multi
         </p>
       }
+      {expand && <p className="ShowRebirth">Requisito próxima expansão peitorais: {reqInv.peito}
+        <br/>
+        Requisito próxima expansão calças: {reqInv.calca}
+        <br/>
+        Requisito próxima expansão espadas: {reqInv.espada}
+        <br/>
+        Requisito próxima expansão arcos: {reqInv.arco}
+        <br/>
+        Benefício: +1 slot
+      </p>}
+      {showExpand && <div>
+        <p className="selectCategory">Qual categoria?</p>
+        {categories.map((cat) => <button className="selectExpand" value={cat} onClick={(e)=>doExpand(e)}>{cat}</button>)}
+      </div>}
       {showMessage && <p className="ShowMessageRB">{showMessage}</p>}
+      {CapInv && <p className="ShowRebirth">{categories.map((cap) => {
+        return <><span className="decorSpan">{cap}: {expansions[cap]+1}</span><br/></>
+      })}</p>}
     </div>
   )
 }

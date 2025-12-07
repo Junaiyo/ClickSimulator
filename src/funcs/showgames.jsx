@@ -3,8 +3,7 @@ import {useNavigate} from "react-router-dom";
 import "/src/styles/style2.css";
 
 export const ShowGames = (props) => {
-  const games = ["Roleta"]
-  //adivinha
+  const games = ["Roleta", "Adivinha", "Aventura"]
   const navigate = useNavigate();
 
   const handlePlay = (game) => {

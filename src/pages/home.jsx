@@ -31,6 +31,17 @@ export const Home = () => {
     "espada": 0,
     "arco": 0
   })
+
+  const expandInventory = (type, expansions, value) => {
+    const newInv = {...inventoryLimit};
+    newInv[type] += 1;
+    setInventoryLimit(newInv);
+    const data = JSON.parse(localStorage.getItem("gameData"));
+    data.inventoryLimit = newInv;
+    data.expansions = expansions;
+    data.clicks = data.clicks - value;
+    localStorage.setItem("gameData", JSON.stringify(data));
+  }
   
   const [showClicks, setShowClicks] = useState(false);
   const [showPerso, setShowPerso] = useState(false);
@@ -88,6 +99,7 @@ export const Home = () => {
     setSuccess("Compra realizada com sucesso");
     const data = JSON.parse(localStorage.getItem("gameData"));
     type === "Armaduras" ? data.armaduras = [...armaduras, [name, itemName, type, especify]] : data.armas = armas;
+    data.clicks = data.clicks - price;
     localStorage.setItem("gameData", JSON.stringify(data));
     return;
   }
@@ -139,6 +151,7 @@ export const Home = () => {
   }
 
   const saveGame = () => {
+    //se o expansions sumir, criar condição que verifica se existe
     const gameData = {
       clicks: clicks,
       totalClicks: totalClicks,
@@ -149,7 +162,9 @@ export const Home = () => {
       spr: spr,
       multiplier: multiplier,
       armorsEquiped: armorsEquiped,
-      showPerso: showPerso
+      showPerso: showPerso,
+      inventoryLimit: inventoryLimit,
+      inventoryCount: inventoryCount
     }
     const jsonData = JSON.stringify(gameData);
     localStorage.setItem("gameData", jsonData);
@@ -169,6 +184,8 @@ export const Home = () => {
       setMultiplier(jd.multiplier);
       setArmorsEquiped(jd.armorsEquiped);
       setShowPerso(jd.showPerso);
+      setInventoryLimit(jd.inventoryLimit);
+      setInventoryCount(jd.inventoryCount);
     }
   }
 
@@ -181,11 +198,18 @@ export const Home = () => {
     loadGame();
   }, []);
 
+
   useEffect(() => {
   setInterval(() => {
     saveGame();
   }, 60 * 10000)
   }, []);
+
+  useEffect(() => {
+    if (multiplier < 1) {
+      setMultiplier(1);
+    }
+  }, [multiplier])
   
   return (
     <div>
@@ -194,7 +218,7 @@ export const Home = () => {
       
       <LojaMenu buttons={[<button value="Armas" onClick={(e) => handleAll("InvArmadura", "InvArma", "Inv", "ArmorMenu-active", e)}>Armas</button>, <button value="Armaduras" onClick={(e)=>handleAll("InvArma", "InvArmadura", "Inv", "ArmorMenu-active", e)}>Armaduras</button>]}components={[<Inventory armaduras={armaduras} armas={armas} improvemulti={ImproveMultiplier} aproveupdate={UpdateItem} showPerson={handleShowPerso} handleEquip={improveEquiped} armorsEquiped={armorsEquiped} setArmorsEquiped={setArmorsEquiped} setclicks={setClicks} setarmadura={setArmaduras} setarmors={setArmas} multi={multiplier} savegame={saveGame} invcount={inventoryCount} setinvcount={setInventoryCount}/>]} id="Inv"/>
       
-      <LojaMenu components={[<Status status={[`Clicks: ${clicks}`, `Total de clicks: ${totalClicks}`, `Clicks gastos: ${spentClicks}`, `Multiplicador: ${multiplier}`, `Rebirths: ${rebirths}`, `Super Rebirths: ${spr}`]} rebirths={rebirths} spr={spr} setRebirth={setRebirths} setSpr={setSpr} clicks={clicks} setspentclicks={setSpentClicks} improvemultiplier={ImproveMultiplier} multiplier={multiplier} setRB={MakeRB}/>]} id="Status"/>
+      <LojaMenu components={[<Status status={[`Clicks: ${clicks}`, `Total de clicks: ${totalClicks}`, `Clicks gastos: ${spentClicks}`, `Multiplicador: ${multiplier}`, `Rebirths: ${rebirths}`, `Super Rebirths: ${spr}`]} rebirths={rebirths} spr={spr} setRebirth={setRebirths} setSpr={setSpr} clicks={clicks} setspentclicks={setSpentClicks} improvemultiplier={ImproveMultiplier} multiplier={multiplier} setRB={MakeRB} setclicks={setClicks} expinv={expandInventory}/>]} id="Status"/>
 
       <LojaMenu components={[<ShowGames clicks={clicks}/>]} id="Games"/>
       

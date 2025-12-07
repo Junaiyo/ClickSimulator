@@ -1,5 +1,17 @@
 /* Esse arquivo engloba a página home, login e alguns de seus componentes */
 
+@supports (-webkit-touch-callout: none) and (-webkit-text-adjust: none) {
+  div {
+  /* isso previne os reajustes do ios*/
+  -webkit-touch-callout: none;
+  -webkit-text-adjust: none;
+  }
+}
+
+div {
+  user-select: none;
+}
+
 body {
   background-color: #343541;
   text-align: center;
@@ -108,7 +120,7 @@ h1, h2 {
   top: -500vh;
   left: 0;
   width: 90%;
-  transition: top 1.9s, left 1.9s;
+  transition: top 1.3s, left 1.3s;
 }
 
 .Loja button {
@@ -185,9 +197,10 @@ h1, h2 {
 }
 
 .calca {
-  bottom: -11%;
+  bottom: -8%;
   left: 22%;
   width: 61%;
+  height: 50%;
 }
 
 .Mouse {
