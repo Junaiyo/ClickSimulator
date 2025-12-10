@@ -154,9 +154,19 @@ export const ShowInventory = (props) => {
     }
   }
 
+  const [cooldown, setCooldown] = useState(false);
   
-
   const handleDesequip = () => {
+    setCooldown(true)
+    if (cooldown) {
+      setErrorUpgrade("Aguarde alguns segundos para desequipar novamente");
+      return;
+    }
+    setTimeout(() => {
+      setCooldown(false);
+      setErrorUpgrade(null);
+    }, 5000);
+    
     setEquiped(false);
 
     alterEquiped(item, false);

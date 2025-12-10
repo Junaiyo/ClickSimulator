@@ -4,8 +4,10 @@ import {useNavigate} from "react-router-dom";
 
 export const ChangeLogs = () => {
   const navigate = useNavigate();
-  const versions = ["Beta 1", "Beta1.5", "Beta 2"];
-  const vLogs = [["versão inicial"], ["sistema de rebirth", "change logs"], ["sistema de jogos", "sistema de vender armaduras", "sistema de visibilidade de armaduras equipadas", "save automático (a cada 10 minutos ou ação importante)", "limite de inventário (expansível futuramente)"]]
+  const versions = ["Beta 1", "Beta1.5", "Beta 2", "Beta 3"];
+  const vLogs = [["versão inicial"], ["sistema de rebirth", "change logs"],
+["sistema de jogos", "sistema de vender armaduras", "sistema de visibilidade de armaduras equipadas", "save automático (a cada 10 minutos ou ação importante)", "limite de inventário (expansível futuramente)"],
+["modo de jogo aventura, com 4 ilhas e 16 monstros","modo de jogo adivinha", "inventário expansível", "cooldown para desequipar armaduras", "interface levemente melhorada"]]
   const [number, setNumber] = useState(0);
   
   return (
