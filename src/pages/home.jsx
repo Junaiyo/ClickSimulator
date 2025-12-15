@@ -18,7 +18,6 @@ export const Home = () => {
   const [rebirths, setRebirths] = useState(0);
   const [spr, setSpr] = useState(0);
   const [multiplier, setMultiplier] = useState(1);
-  const [success, setSuccess] = useState(null);
   const [inventoryLimit, setInventoryLimit] = useState({
     "peito": 1,
     "calca": 1,
@@ -60,32 +59,32 @@ export const Home = () => {
     handleShowClicks();
   }
 
-  const handleBuy = (price, rb, sbr, name, itemName, type, especify) => {
+  const handleBuy = (price, rb, sbr, name, itemName, type, especify, setMsg, nums) => {
     if (price > clicks) {
-      setSuccess("Você não tem clicks suficientes");
+      setMsg(nums, "Você não tem clicks suficientes");
       return;
     } 
     if (rb > rebirths) {
-      setSuccess("Você não tem rebirths suficientes");
+      setMsg(nums, "Você não tem rebirths suficientes");
       return;
     }
     if (spr > sbr) {
-      setSuccess("Você não tem super rebirths suficientes");
+      setMsg(nums, "Você não tem super rebirths suficientes");
       return;
     }
     if (inventoryCount[especify] >= inventoryLimit[especify]) {
-      setSuccess("Você atingiu o limite de itens desse tipo");
+      setMsg(nums, "Você atingiu o limite de itens desse tipo");
       return;
     }
     for (let i = 0; i < armaduras.length; i++) {
       if (armaduras[i][0] === name) {
-        setSuccess("Você já possui esse item");
+        setMsg(nums, "Você já possui esse item");
         return;
       }
     }
     for (let i = 0; i < armas.length; i++) {
       if (armas[i][0] === name) {
-        setSuccess("Você já possui esse item");
+        setMsg(nums, "Você já possui esse item");
         return;
       }
     }
@@ -96,9 +95,9 @@ export const Home = () => {
     setClicks((prev) => prev - price);
     setSpentClicks((prev) => prev + price);
     type === "Armaduras" ?setArmaduras((prev) => [...prev, [name, itemName, type, especify]]) : setArmas((prev) => [...prev, [name, itemName, type, especify]]);
-    setSuccess("Compra realizada com sucesso");
+    setMsg(nums, "Compra realizada com sucesso");
     const data = JSON.parse(localStorage.getItem("gameData"));
-    type === "Armaduras" ? data.armaduras = [...armaduras, [name, itemName, type, especify]] : data.armas = armas;
+    type === "Armaduras" ? data.armaduras = [...armaduras, [name, itemName, type, especify]] : data.armas = [...armas, [name, itemName, type, especify]];
     data.clicks = data.clicks - price;
     localStorage.setItem("gameData", JSON.stringify(data));
     return;
@@ -106,6 +105,7 @@ export const Home = () => {
 
   const ImproveMultiplier = (multi) => {
     setMultiplier((prev) => prev + multi);
+    
   }
 
   const UpdateItem = (price) => {
@@ -116,10 +116,6 @@ export const Home = () => {
     setClicks((prev) => prev - price);
     setSpentClicks((prev) => prev + price);
     return true;
-  }
-
-  const setsuccs = (msg) => {
-    setSuccess(msg);
   }
 
   const handleShowPerso = () => {
@@ -191,7 +187,6 @@ export const Home = () => {
 
   useEffect(() => {
     if (!localStorage.getItem("gameData")) {
-      localStorage.clear();
       saveGame();
       return;
     }
@@ -214,9 +209,9 @@ export const Home = () => {
   return (
     <div>
       
-      <LojaMenu buttons={[<button onClick={(e) =>handleAll("ArmorMenu", "GunsMenu", "Armadura", "ArmorMenu-active", e)} value="Armadura">Armaduras</button>, <button onClick={(e) =>handleAll("ArmorMenu", "GunsMenu", "Armadura", "ArmorMenu-active", e)} value="Arma">Armas</button>]} components={[<ArmorsMenu handleBuy={handleBuy} success={success} setsuccess={setsuccs}/>, <GunsMenu handleBuy={handleBuy} success={success} setsuccess={setsuccs}/>]} id="Loja"/>
+      <LojaMenu buttons={[<button onClick={(e) =>handleAll("ArmorMenu", "GunsMenu", "Armadura", "ArmorMenu-active", e)} value="Armadura">Armaduras</button>, <button onClick={(e) =>handleAll("ArmorMenu", "GunsMenu", "Armadura", "ArmorMenu-active", e)} value="Arma">Armas</button>]} components={[<ArmorsMenu handleBuy={handleBuy} />, <GunsMenu handleBuy={handleBuy} />]} id="Loja"/>
       
-      <LojaMenu buttons={[<button value="Armas" onClick={(e) => handleAll("InvArmadura", "InvArma", "Inv", "ArmorMenu-active", e)}>Armas</button>, <button value="Armaduras" onClick={(e)=>handleAll("InvArma", "InvArmadura", "Inv", "ArmorMenu-active", e)}>Armaduras</button>]}components={[<Inventory armaduras={armaduras} armas={armas} improvemulti={ImproveMultiplier} aproveupdate={UpdateItem} showPerson={handleShowPerso} handleEquip={improveEquiped} armorsEquiped={armorsEquiped} setArmorsEquiped={setArmorsEquiped} setclicks={setClicks} setarmadura={setArmaduras} setarmors={setArmas} multi={multiplier} savegame={saveGame} invcount={inventoryCount} setinvcount={setInventoryCount}/>]} id="Inv"/>
+      <LojaMenu buttons={[<button value="Armas" onClick={(e) => handleAll("InvArmadura", "InvArma", "Inv", "ArmorMenu-active", e)}>Armas</button>, <button value="Armaduras" onClick={(e)=>handleAll("InvArma", "InvArmadura", "Inv", "ArmorMenu-active", e)}>Armaduras</button>]}components={[<Inventory armaduras={armaduras} armas={armas} improvemulti={ImproveMultiplier} aproveupdate={UpdateItem} showPerson={handleShowPerso} handleEquip={improveEquiped} armorsEquiped={armorsEquiped} setArmorsEquiped={setArmorsEquiped} setclicks={setClicks} setarmadura={setArmaduras} setarmors={setArmas} multi={multiplier} savegame={saveGame} invcount={inventoryCount} setinvcount={setInventoryCount} setMulti={setMultiplier}/>]} id="Inv"/>
       
       <LojaMenu components={[<Status status={[`Clicks: ${clicks}`, `Total de clicks: ${totalClicks}`, `Clicks gastos: ${spentClicks}`, `Multiplicador: ${multiplier}`, `Rebirths: ${rebirths}`, `Super Rebirths: ${spr}`]} rebirths={rebirths} spr={spr} setRebirth={setRebirths} setSpr={setSpr} clicks={clicks} setspentclicks={setSpentClicks} improvemultiplier={ImproveMultiplier} multiplier={multiplier} setRB={MakeRB} setclicks={setClicks} expinv={expandInventory}/>]} id="Status"/>
 

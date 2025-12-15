@@ -1,9 +1,9 @@
-import React, {useState} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import "/src/styles/style.css";
 import {ShowInventory} from "./showinventory";
 
 export const Inventory = (props) => {
-  const {armaduras, armas, setarmors, setarmadura} = props;
+  const {armaduras, armas, setarmors, setarmadura, setMulti} = props;
   const [levels, setLevels] = useState({
     "Calça de couro": {
       "level": 0,
@@ -117,19 +117,39 @@ export const Inventory = (props) => {
     }
     type === "armadura" ? setarmadura(newArr) : setarmors(newArr);
   }
+
+  useEffect(() => {
+    if (!localStorage.getItem("armorsData")) {
+      localStorage.setItem("armorsData", JSON.stringify(levels));
+      return;
+    }
+    setLevels(JSON.parse(localStorage.getItem("armorsData")));
+    
+    
+  }, [])
+
+  const initRender = useRef(true);
+  useEffect(() => {
+    if (initRender.current) {
+      initRender.current = false;
+      return;
+    }
+    localStorage.setItem("armorsData", JSON.stringify(levels));
+  }, [levels, props.armorsEquiped])
   
   return (
     <>
     <div className="Loja ArmorMenu" id="InvArma">
       
-      {armas.length>0 ? armas.map((arma, index) => <ShowInventory key={arma[0]} item={arma[0]} imgName={arma[1]} improvemulti={props.improvemulti} aproveupdate={props.aproveupdate} showPerson={props.showPerson} especify={arma[3]} handleEquip={props.handleEquip} armorsEquiped={props.armorsEquiped} setArmorsEquiped={props.setArmorsEquiped} setclicks={props.setclicks} setarmas={setarmors} setarmadura={setarmadura} armas={armas} armaduras={armaduras} multiplier={props.multi} savegame={props.savegame} alterLevels={alterLevels} levels={levels} invcount={props.invcount} setinvcount={props.setinvcount} alterEquiped={alterEquiped} resetItem={resetItem}/>) : <h2>Você não tem nenhuma arma</h2>}
+      {armas.length>0 ? armas.map((arma, index) => <ShowInventory key={arma[0]} item={arma[0]} imgName={arma[1]} improvemulti={props.improvemulti} aproveupdate={props.aproveupdate} showPerson={props.showPerson} especify={arma[3]} handleEquip={props.handleEquip} armorsEquiped={props.armorsEquiped} setArmorsEquiped={props.setArmorsEquiped} setclicks={props.setclicks} setarmas={setarmors} setarmadura={setarmadura} armas={armas} armaduras={armaduras} multiplier={props.multi} savegame={props.savegame} alterLevels={alterLevels} levels={levels} invcount={props.invcount} setinvcount={props.setinvcount} alterEquiped={alterEquiped} resetItem={resetItem} setMulti={setMulti}/>) : <h2>Você não tem nenhuma arma</h2>}
       
     </div>
     <div className="Loja ArmorMenu" id="InvArmadura">
 
-      {armaduras.length>0 ? armaduras.map((armadura, index) => <ShowInventory key={armadura[0]} item={armadura[0]} imgName={armadura[1]} improvemulti={props.improvemulti} aproveupdate={props.aproveupdate} showPerson={props.showPerson} especify={armadura[3]} handleEquip={props.handleEquip} armorsEquiped={props.armorsEquiped} setArmorsEquiped={props.setArmorsEquiped} setclicks={props.setclicks} setarmas={setarmors} setarmadura={setarmadura} armas={armas} armaduras={armaduras} multiplier={props.multi} savegame={props.savegame} alterLevels={alterLevels} levels={levels} setinvcount={props.setinvcount} invcount={props.invcount} alterEquiped={alterEquiped} resetItem={resetItem}/>) : <h2>Você não tem nenhuma armadura</h2>}
+      {armaduras.length>0 ? armaduras.map((armadura, index) => <ShowInventory key={armadura[0]} item={armadura[0]} imgName={armadura[1]} improvemulti={props.improvemulti} aproveupdate={props.aproveupdate} showPerson={props.showPerson} especify={armadura[3]} handleEquip={props.handleEquip} armorsEquiped={props.armorsEquiped} setArmorsEquiped={props.setArmorsEquiped} setclicks={props.setclicks} setarmas={setarmors} setarmadura={setarmadura} armas={armas} armaduras={armaduras} multiplier={props.multi} savegame={props.savegame} alterLevels={alterLevels} levels={levels} setinvcount={props.setinvcount} invcount={props.invcount} alterEquiped={alterEquiped} resetItem={resetItem} setMulti={setMulti}/>) : <h2>Você não tem nenhuma armadura</h2>}
         
     </div>
     </>
   )
+  //prometo que algum dia vou diminuir essas props
 }

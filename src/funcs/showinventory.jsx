@@ -129,13 +129,23 @@ export const ShowInventory = (props) => {
     const newArr = [...props.armorsEquiped];
     for (let i = 0; i < newArr.length; i++) {
       if (newArr[i][1] === especify) {
-        newArr[i][0] = `${especify}${itemsUpgrades[item]["Type"]}.${extra ? level+2 : level+1}.png`;
+        newArr[i][0] = `${especify}${itemsUpgrades[item]["Type"]}.${level+1}.png`;
+        if (extra) {
+          newArr[i][0] = `${especify}${itemsUpgrades[item]["Type"]}.${extra-1}.png`;
+          if (extra-1 < 1) {
+            newArr[i][0] = `${levels[item]["default"]}`;
+          }
+        }
         props.setArmorsEquiped(newArr);
       }
     }
   }
   
   const handleUpgrade = () => {
+    setCooldown(true);
+    const coldown = handleCooldown();
+    if (coldown) {return;}
+    
     const aprove = props.aproveupdate(itemsUpgrades[item]["UpgradesPrices"][level]);
     setErrorUpgrade("Clicks insuficientes");
     if (aprove) {
@@ -155,17 +165,22 @@ export const ShowInventory = (props) => {
   }
 
   const [cooldown, setCooldown] = useState(false);
-  
-  const handleDesequip = () => {
-    setCooldown(true)
+
+  const handleCooldown = () => {
     if (cooldown) {
-      setErrorUpgrade("Aguarde alguns segundos para desequipar novamente");
-      return;
+      setErrorUpgrade("Aguarde alguns segundos para tentar novamente");
+      return true;
     }
     setTimeout(() => {
       setCooldown(false);
       setErrorUpgrade(null);
-    }, 5000);
+    }, 2500);
+  }
+  
+  const handleDesequip = () => {
+    setCooldown(true)
+    const coldown = handleCooldown();
+    if (coldown) {return;}
     
     setEquiped(false);
 
@@ -217,6 +232,10 @@ export const ShowInventory = (props) => {
   }
 
   const handleSell = () => {
+    setCooldown(true);
+    const coldown = handleCooldown();
+    if (coldown) {return;}
+    
     const newArr = [...props.armas];
     const newArr2 = [...props.armaduras];
 
@@ -273,6 +292,33 @@ export const ShowInventory = (props) => {
     itemType === "armadura" ? data.armaduras = newArr2 : data.armas = newArr;
     localStorage.setItem("gameData", JSON.stringify(data));
   }
+
+  useEffect(() => {
+    if (localStorage.getItem("armorsData")) {
+      const aData = JSON.parse(localStorage.getItem("armorsData"));
+      setLevel(aData[item]["level"]);
+      setImg(aData[item]["img"]);
+      setItemType(aData[item]["itemType"]);
+      setMax(aData[item]["max"]);
+      if (aData[item]["equiped"]) {
+        setEquiped(true);
+        ModifyImage(aData[item]["level"]+1);
+
+        //Arrumar essa parte
+        let incriment = 0;
+        for (let i = 0; i <aData[item]["level"]; i++) {
+          incriment += itemsUpgrades[item]["UpgradesMultipliers"][i];
+        }
+        //if (props.armorsEquiped.length === 4) {
+         // incriment -= 0;
+       // }
+
+        setTimeout(() => {
+        props.improvemulti(incriment + itemsUpgrades[item]["InitialMulti"]); }, 200)
+        //.
+      }
+    }
+  }, [])
 
   return (
     <div>

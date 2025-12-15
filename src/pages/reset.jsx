@@ -7,12 +7,13 @@ export const Reset = () => {
   const [msg, setMsg] = useState("");
 
   const handleClicker = () => {
-    //localStorage.clear("gameData");
+    localStorage.removeItem("gameData");
+    localStorage.removeItem("armorsData");
     setMsg("Clicker resetado!");
   }
 
   const handleAdventure = () => {
-    //localStorage.clear("aventuraData");
+    localStorage.removeItem("aventuraData");
     setMsg("Aventura resetada!");
   }
 
