@@ -12,10 +12,6 @@ div {
   user-select: none;
 }
 
-img {
-  pointer-events: none;
-}
-
 body {
   background-color: #343541;
   text-align: center;

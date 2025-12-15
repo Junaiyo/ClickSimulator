@@ -149,8 +149,8 @@ export const Aventura = () => {
       <div className="showIsland">
         {islandsIcons.map((island, index) => (
       <React.Fragment className="lock">
-          <img src={`assets/islandicon${island}.jpeg`} alt={`Ilha ${index+1}`} className={`${island === currentIcon ? "islandHotBarSelected" : "islandsHotBar"} islandImgHotBar`} key={island} onClick={()=>changeIsland(index)}/>
-        {unlockedIslands[index][0] || <img src="assets/locker.png" className="lockerIsland"/>}
+          <img src={`/assets/islandicon${island}.jpeg`} alt={`Ilha ${index+1}`} className={`${island === currentIcon ? "islandHotBarSelected" : "islandsHotBar"} islandImgHotBar`} key={island} onClick={()=>changeIsland(index)}/>
+        {unlockedIslands[index][0] || <img src="/assets/locker.png" className="lockerIsland"/>}
       </React.Fragment>
         ))}
       </div>
@@ -158,14 +158,14 @@ export const Aventura = () => {
       {offerIsland && <div className="offerIsland">
         <h2><small>{offerIsland}</small></h2>
         {offerIsland === "Você não tem essa ilha" && <>
-        <h3 className="decorCoins">{islandsCoins[currentIsland-1] >= 1000 ? abbrCoin : islandsCoins[currentIsland-1]}/{islandPrices[showPriceIsland]}<img src={`assets/islandcoin${currentIsland}.png`} className="lowerCoin"/></h3>
+        <h3 className="decorCoins">{islandsCoins[currentIsland-1] >= 1000 ? abbrCoin : islandsCoins[currentIsland-1]}/{islandPrices[showPriceIsland]}<img src={`/assets/islandcoin${currentIsland}.png`} className="lowerCoin"/></h3>
         
         {canBuyIsland && <button className="buyIsland" onClick={buyIsland}>Comprar ilha</button>}
     </>}
       </div>}
 
       <div className="ShowCoins">
-        <img src={`assets/islandcoin${currentIsland}.png`} className="imgCoin"/>
+        <img src={`/assets/islandcoin${currentIsland}.png`} className="imgCoin"/>
         <p className="showBalance">{islandsCoins[currentIsland-1] >= 1000 ? abbrCoin : islandsCoins[currentIsland-1]}</p>
       </div>
       
