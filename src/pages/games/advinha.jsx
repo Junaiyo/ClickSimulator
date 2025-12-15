@@ -91,7 +91,7 @@ export const Adivinha = () => {
     <div className="adv">
       {items.map((item, index) => {
       return <div className="item" key={index} onClick={handleClick}>
-        <img src={`/assets/${item}.png`} id={item}/>
+        <img src={`assets/${item}.png`} id={item}/>
         {showMulti && <h3>{showMulti[index]}x</h3>}
       </div>
       })}
