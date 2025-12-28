@@ -56,6 +56,11 @@
   
 }
 
+.islandImgHotBar  {
+  pointer-events: auto;
+  /* Provisório*/
+}
+
 .lockerIsland {
   position: absolute;
   margin-left: -18.5%;

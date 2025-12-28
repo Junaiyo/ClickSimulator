@@ -4,6 +4,7 @@
   width: 75vw;
 }
 
+
 .adv .item {
   background-color: #333;
   border: 2px solid white;
@@ -57,4 +58,9 @@ input {
   margin-bottom: 5em;
   margin-left: auto;
   margin-right: auto;
+}
+
+.item img {
+  pointer-events: auto;
+  /* Provisório*/
 }
