@@ -31,6 +31,56 @@ export const Home = () => {
     "arco": 0
   })
 
+  const [loaded, setLoaded] = useState(false);
+  const saveGame = () => {
+    //se o expansions sumir, criar condição que verifica se existe
+    const gameData = {
+      clicks: clicks,
+      totalClicks: totalClicks,
+      spentClicks: spentClicks,
+      armas: armas,
+      armaduras: armaduras,
+      rebirths: rebirths,
+      spr: spr,
+      multiplier: multiplier,
+      armorsEquiped: armorsEquiped,
+      showPerso: showPerso,
+      inventoryLimit: inventoryLimit,
+      inventoryCount: inventoryCount
+    }
+    const jsonData = JSON.stringify(gameData);
+    localStorage.setItem("gameData", jsonData);
+  }
+
+  const loadGame = () => {
+    //localStorage.clear();
+    const jd = JSON.parse(localStorage.getItem("gameData"));
+    if (jd) {
+      setClicks(jd.clicks);
+      setTotalClicks(jd.totalClicks);
+      setSpentClicks(jd.spentClicks);
+      setArmas(jd.armas);
+      setArmaduras(jd.armaduras);
+      setRebirths(jd.rebirths);
+      setSpr(jd.spr);
+      setMultiplier(jd.multiplier);
+      setArmorsEquiped(jd.armorsEquiped);
+      setShowPerso(jd.showPerso);
+      setInventoryLimit(jd.inventoryLimit);
+      setInventoryCount(jd.inventoryCount);
+    }
+  }
+
+  useEffect(() => {
+    const data = localStorage.getItem("gameData");
+    if (!data) {
+      saveGame();
+    } else {
+    loadGame();
+    }
+    setLoaded(true);
+  }, []);
+
   const expandInventory = (type, expansions, value) => {
     const newInv = {...inventoryLimit};
     newInv[type] += 1;
@@ -96,7 +146,7 @@ export const Home = () => {
     setSpentClicks((prev) => prev + price);
     type === "Armaduras" ?setArmaduras((prev) => [...prev, [name, itemName, type, especify]]) : setArmas((prev) => [...prev, [name, itemName, type, especify]]);
     setMsg(nums, "Compra realizada com sucesso");
-    const data = JSON.parse(localStorage.getItem("gameData"));
+    const data = JSON.parse(localStorage.getItem("gameData")) || {};
     type === "Armaduras" ? data.armaduras = [...armaduras, [name, itemName, type, especify]] : data.armas = [...armas, [name, itemName, type, especify]];
     data.clicks = data.clicks - price;
     localStorage.setItem("gameData", JSON.stringify(data));
@@ -146,65 +196,17 @@ export const Home = () => {
     setMultiplier(1);
   }
 
-  const saveGame = () => {
-    //se o expansions sumir, criar condição que verifica se existe
-    const gameData = {
-      clicks: clicks,
-      totalClicks: totalClicks,
-      spentClicks: spentClicks,
-      armas: armas,
-      armaduras: armaduras,
-      rebirths: rebirths,
-      spr: spr,
-      multiplier: multiplier,
-      armorsEquiped: armorsEquiped,
-      showPerso: showPerso,
-      inventoryLimit: inventoryLimit,
-      inventoryCount: inventoryCount
-    }
-    const jsonData = JSON.stringify(gameData);
-    localStorage.setItem("gameData", jsonData);
-  }
-
-  const loadGame = () => {
-    //localStorage.clear();
-    const jd = JSON.parse(localStorage.getItem("gameData"));
-    if (jd) {
-      setClicks(jd.clicks);
-      setTotalClicks(jd.totalClicks);
-      setSpentClicks(jd.spentClicks);
-      setArmas(jd.armas);
-      setArmaduras(jd.armaduras);
-      setRebirths(jd.rebirths);
-      setSpr(jd.spr);
-      setMultiplier(jd.multiplier);
-      setArmorsEquiped(jd.armorsEquiped);
-      setShowPerso(jd.showPerso);
-      setInventoryLimit(jd.inventoryLimit);
-      setInventoryCount(jd.inventoryCount);
-    }
-  }
-
-  useEffect(() => {
-    if (!localStorage.getItem("gameData")) {
-      saveGame();
-      return;
-    }
-    loadGame();
-  }, []);
-
-
-  useEffect(() => {
-  setInterval(() => {
-    saveGame();
-  }, 60 * 10000)
-  }, []);
-
   useEffect(() => {
     if (multiplier < 1) {
       setMultiplier(1);
     }
   }, [multiplier])
+
+  if (!loaded) return (
+    <div>
+      <p>Carregando</p>
+    </div>
+  )
   
   return (
     <div>
