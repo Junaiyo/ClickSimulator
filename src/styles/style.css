@@ -54,8 +54,8 @@ h1, h2 {
 
 .click {
   position: relative;
-  width: 90px;
-  height: 35px;
+  width: 12.5vmax;
+  height: 11vmax;
   padding: 34px 25px 38px 25px;
   border-radius: 50%;
   border: none;
@@ -66,10 +66,9 @@ h1, h2 {
 
 .click img {
   display: block;
-  position: relative;
-  bottom: 21px;
-  left: 9px;
-  bottom: 25px;
+  position: absolute;
+  bottom: 20%;
+  left: 27.5%;
 }
 
 .top {
@@ -208,7 +207,7 @@ h1, h2 {
 }
 
 .Mouse {
-  width: 36px;
+  width: 60%;
 }
 
 .lojaitem {
