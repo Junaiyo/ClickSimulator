@@ -17,6 +17,16 @@ export const Adivinha = () => {
   const handleClick = (e) => {
     setShowMulti(null);
     const itm = e.target.id;
+    if (recent) {
+      setRecent(false);
+      setItem(null);
+      return;
+    }
+    if (cooldown) {
+      setItem(null);
+      setCooldown("Você está em cooldown, aguarde 1 segundo");
+      return;
+    }
     setItem(itm);
   }
 
@@ -67,22 +77,30 @@ export const Adivinha = () => {
     calcReward(Selecteds);
   }
 
+  const [recent, setRecent] = useState(false);
+  const [cooldown, setCooldown] = useState(false);
   const calcReward = (Selecteds) => {
     let multi = Selecteds[items.indexOf(item)];
     let reward = valor * multi;
     setValor(reward);
     updateClicks(reward, multi);
+    setRecent(true);
+    setCooldown(true);
+    setTimeout(() => {
+      setCooldown(false);
+    }, 1000);
   }
 
   const updateClicks = (value, multi) => {
-  let signal = multi >= 1 ? "+" : "-";
     const gameData = JSON.parse(localStorage.getItem("gameData"));
     
-    const expression = signal === "+" ? Math.floor(value * multi) - initialValue : -(initialValue - (Math.ceil(value * multi)))
-    setClicks((prev) => prev + expression);
-    gameData.clicks = clicks + expression;
-    
-    localStorage.setItem("gameData", JSON.stringify(gameData));
+    const expression = Math.floor(initialValue * multi) - initialValue;
+    setClicks((prev) => {
+      const newVal = prev + expression;
+      gameData.clicks = newVal;
+      localStorage.setItem("gameData", JSON.stringify(gameData));
+      return newVal;
+    });
   }
   
   return (
@@ -93,6 +111,7 @@ export const Adivinha = () => {
       return <div className="item" key={index} onClick={handleClick}>
         <img src={`assets/${item}.png`} id={item}/>
         {showMulti && <h3>{showMulti[index]}x</h3>}
+        {cooldown && <h3>{cooldown}</h3>}
       </div>
       })}
     </div>

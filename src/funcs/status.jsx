@@ -95,6 +95,7 @@ export const Status = (props) => {
     props.setspentclicks((prev) => prev + reqInv[val]);
     props.setclicks((prev) => prev - reqInv[val]);
     props.expinv(val, prevv, reqInv[val]);
+    save(3);
   }
 
   const calcRebirth = () => {
@@ -112,6 +113,21 @@ export const Status = (props) => {
     setBuffSp(calc2/100);
   }
 
+  const save = (type) => {
+    const data = JSON.parse(localStorage.getItem("gameData"));
+    switch (type) {
+      case 1:
+        data.rebirths = rebirths +1;
+        break;
+      case 2:
+        data.spr = spr + 1;
+        break;
+      case 3:
+        data.expansions = expansions + 1;
+    }
+    localStorage.setItem("gameData", JSON.stringify(data));
+  }
+
   const makeRebirth = () => {
     if (clicks >= reqRb) {
       props.setRB();
@@ -119,6 +135,7 @@ export const Status = (props) => {
       setShowMessage("Rebirth realizado com sucesso");
       props.setspentclicks((prev) => prev + reqRb);
       props.improvemultiplier(buff);
+      save(1);
       return;
     }
     setShowMessage("Clicks insuficientes");
@@ -131,6 +148,7 @@ export const Status = (props) => {
       props.setRebirth((prev) => prev - reqSp);
       setShowMessage("Super Rebirth realizado com sucesso");
       props.improvemultiplier(buffSp);
+      save(2);
       return;
     }
     setShowMessage("Rebirths insuficientes");

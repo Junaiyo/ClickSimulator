@@ -4,7 +4,9 @@ import "/src/styles/openbox.css";
 export const OpenBox = (props) => {
   const boxItems = {
     "Caixa básica": [[5, "Comum"], [10, "Comum"], [50, "Raro"], [100, "Raro"], [250, "Raro"], [500, "Épico"], [750, "Épico"], [1000, "Lendário"]],
-    "Caixa de ferro": [[10, "Comum"], [50, "Comum"], [100, "Raro"], [250, "Raro"], [500, "Raro"], [750, "Épico"], [1000, "Lendário"], [1250, "Lendário"]]
+    "Caixa de ferro": [[10, "Comum"], [50, "Comum"], [100, "Raro"], [250, "Raro"], [500, "Raro"], [750, "Épico"], [1000, "Lendário"], [1250, "Lendário"]],
+    "Caixa de ouro": [[25, "Comum"], [75, "Comum"], [150, "Raro"],[315, "Raro"], [500, "Raro"], [900, "Épico"], [1250, "Épico"], [1500, "Lendário"]],
+    "Caixa de diamante": [[50, "Comum"], [100, "Comum"], [300, "Comum"], [500, "Raro"], [750, "Raro"], [1000, "Raro"], [1300, "Épico"], [1500, "Épico"], [1750, "Épico"], [2250, "Lendário"]]
   }
   const { box, porcents, cR, rR, eR, lR } = props;
   const iterables = [cR, rR, eR, lR]
@@ -14,16 +16,17 @@ export const OpenBox = (props) => {
   const [reward, setReward] = useState(false);
   
   const selector = () => {
-    for (let i = 0; i < porcents.length; i++) {
-      porcents[i][0] -= iterables[i];
+    const local = [...porcents];
+    for (let i = 0; i < local.length; i++) {
+      local[i][0] -= iterables[i];
     }
     let total = 0;
-    for (const p of porcents) {
+    for (const p of local) {
       total += p[0];
     }
     const num = Math.random() * total;
     let acumulator = 0;
-    for (const r of porcents) {
+    for (const r of local) {
       acumulator += r[0];
       if (num <= acumulator) {
         return r[1];
@@ -46,7 +49,7 @@ export const OpenBox = (props) => {
   }
   
   const spin = () => {
-    let time = 225;
+    let time = 220;
     let giro = 0;
 
     const doSpin = () => {
@@ -61,11 +64,11 @@ export const OpenBox = (props) => {
           props.setRolling(false);
         }, 4500)
         const selected = selector();
-        const selected2 = calcRItem(selected)
+        const selected2 = calcRItem(selected);
+        props.updateClicks(-selected2);
         setCurrentStyle(selected);
         setCurrentItem(selected2);
         setReward(true);
-        props.updateClicks(-selected2)
         return;
       }
       setTimeout(doSpin, time);

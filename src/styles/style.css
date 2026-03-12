@@ -253,4 +253,14 @@ h1, h2 {
     width: 20%;
     height: 45%;
   }
+  .click {
+    height: 9vmax;
+    width: 10vmax;
+  }
+  .click img {
+    bottom: 7%;
+  }
+  .Mouse {
+    width: 55%;
+  }
 }

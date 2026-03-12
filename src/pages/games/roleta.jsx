@@ -6,11 +6,13 @@ import {OpenBox} from "./funcs/openbox";
 
 export const Roleta = () => {
   const navigate = useNavigate();
-  const boxes = ["Caixa básica", "Caixa de ferro"];
-  const boxPrices = [100, 200];
+  const boxes = ["Caixa básica", "Caixa de ferro", "Caixa de ouro", "Caixa de diamante"];
+  const boxPrices = [100, 200, 500, 1000];
   const rdts = {
     "Caixa básica": [0, 0, 0, 0],
-    "Caixa de ferro": [4, -4, -3, -1]
+    "Caixa de ferro": [4, -4, -3, -1],
+    "Caixa de ouro" : [5, -6, -5, -2],
+    "Caixa de diamante": [7, -9, -7, -3]
   }
   const porcents = [[74, "Comum"], [15, "Raro"], [10, "Épico"], [1, "Lendário"]];
   
@@ -24,9 +26,12 @@ export const Roleta = () => {
   const [clicks, setClicks] = useState(gameData ? gameData.clicks : 0)
 
   const updateClicks = (price) => {
-    gameData.clicks = clicks-price;
-    setClicks(clicks-price);
-    localStorage.setItem("gameData", JSON.stringify(gameData))
+    setClicks((prev) => {
+      const newVal = prev - price;
+      gameData.clicks = newVal;
+      localStorage.setItem("gameData", JSON.stringify(gameData));
+      return newVal;
+    })
   }
 
   const handleVisibleBox = () => {
@@ -35,7 +40,6 @@ export const Roleta = () => {
   
   const handleBuy = (box) => {
     const price = boxPrices[boxes.indexOf(box)];
-    updateClicks(price);
     if (price > clicks) {
       setMsg("Clicks insuficientes");
       return;
@@ -44,10 +48,12 @@ export const Roleta = () => {
       setMsg("Já tem uma caixa sendo aberta");
       return;
     }
+    updateClicks(price);
     setMsg("Compra realizada com sucesso");
     setOpenBox(true);
     setOpBox(box)
     setRolling(true);
+    window.scrollTo(0,0);
   }
 
   const [rarity, setRarity] = useState(() => boxes.map(() => false));
