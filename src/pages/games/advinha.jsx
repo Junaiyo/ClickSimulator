@@ -96,7 +96,7 @@ export const Adivinha = () => {
     
     const expression = Math.floor(initialValue * multi) - initialValue;
     setClicks((prev) => {
-      const newVal = prev + expression;
+      const newVal = Math.ceil(prev + expression);
       gameData.clicks = newVal;
       localStorage.setItem("gameData", JSON.stringify(gameData));
       return newVal;
@@ -122,7 +122,7 @@ export const Adivinha = () => {
         {showConfirm && showConfirm !== "Clicks insuficientes" && showConfirm !== "Valor inválido" ? <button className="guest-login gameconfirm" onClick={handleConfirm}>Confirmar</button> : <h3>{showConfirm}</h3>}
         {showMulti && <>
           <h3>Seu multiplicador: {showMulti[items.indexOf(item)]}x</h3>
-          <h3>Você ganhou {valor} clicks</h3>
+          <h3>Você ganhou {Math.ceil(valor)} clicks</h3>
         </>}
       </div>}
       <button onClick={() => navigate("/home")} className="guest-login">Voltar</button>

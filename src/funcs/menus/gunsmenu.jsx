@@ -6,7 +6,8 @@ import {handleAll} from "/src/funcs/handleAll";
 export const GunsMenu = (props) => {
 
   const [swords, _] = useState([
-    ["Espada de madeira", "espada1.png", 50, 2, 0, 0]
+    ["Espada de madeira", "espada1.png", 50, 2, 0, 0],
+    ["Espada do caos", "espada2.png", 10000, 100, 1, 0]
   ]);
 
   const [bows, __] = useState([

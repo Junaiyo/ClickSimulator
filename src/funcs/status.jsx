@@ -91,11 +91,11 @@ export const Status = (props) => {
 
     const prevv = {...expansions};
     prevv[val] += 1;
+    save(3);
     setExpansions(prevv);
     props.setspentclicks((prev) => prev + reqInv[val]);
     props.setclicks((prev) => prev - reqInv[val]);
     props.expinv(val, prevv, reqInv[val]);
-    save(3);
   }
 
   const calcRebirth = () => {
@@ -109,8 +109,8 @@ export const Status = (props) => {
   const calcBuff = () => {
     const calc1 = Math.floor((multiplier / 100) + ((rebirths === 0 ? 1 : rebirths) * 100));
     const calc2 = Math.floor((multiplier / 100) + ((spr === 0 ? 1 : spr) * 100)*2);
-    setBuff(calc1/100);
-    setBuffSp(calc2/100);
+    setBuff(Math.ceil(calc1/100));
+    setBuffSp(Math.ceil(calc2/100));
   }
 
   const save = (type) => {
@@ -135,6 +135,8 @@ export const Status = (props) => {
       setShowMessage("Rebirth realizado com sucesso");
       props.setspentclicks((prev) => prev + reqRb);
       props.improvemultiplier(buff);
+      props.setR(true);
+      resetExp();
       save(1);
       return;
     }
@@ -148,10 +150,27 @@ export const Status = (props) => {
       props.setRebirth((prev) => prev - reqSp);
       setShowMessage("Super Rebirth realizado com sucesso");
       props.improvemultiplier(buffSp);
+      props.setR(true);
+      resetExp();
       save(2);
       return;
     }
     setShowMessage("Rebirths insuficientes");
+  }
+
+  const resetExp = () => {
+    const data = JSON.parse(localStorage.getItem("gameData"));
+    const prev = {...expansions};
+    for (const key in prev) {
+      prev[key] = 0;
+      data.inventoryLimit[key] = 1;
+      data.inventoryCount[key] = 0;
+    }
+    data.expansions = prev;
+    props.setInvCount(data.inventoryCount);
+    props.setInvLimit(data.inventoryLimit);
+    localStorage.setItem("gameData", JSON.stringify(data));
+    setExpansions(prev);
   }
 
   useEffect(() => {

@@ -7,10 +7,10 @@ export const ArmorsMenu = (props) => {
 
   const [chests, _] = useState([
     ["Peitoral de couro", "peito1.png", 50, 2, 0, 0],
-    ["Peitoral de ferro", "peito2.png", 125, 3, 0, 0],
-    ["Peitoral de ouro", "peito3.png", 200, 4, 0, 0],
-    ["Peitoral de diamante", "peito4.png", 500, 5, 0, 0],
-    ["Peitoral de obsidiana", "peito5.png", 1000, 6, 0, 0]
+    ["Peitoral de ferro", "peito2.png", 175, 3, 0, 0],
+    ["Peitoral de ouro", "peito3.png", 499, 4, 0, 0],
+    ["Peitoral de diamante", "peito4.png", 1000, 5, 0, 0],
+    ["Peitoral de obsidiana", "peito5.png", 2000, 6, 0, 0]
   ]);
   
   const [legs, __] = useState([

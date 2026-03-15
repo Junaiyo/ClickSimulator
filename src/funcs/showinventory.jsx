@@ -89,6 +89,14 @@ export const ShowInventory = (props) => {
       "UpgradesPngs": ["peito5.1.png", "peito5.2.png"],
       "UpgradesMultipliers": [7, 8],
       "Type": 5
+    },
+    "Espada do caos": {
+      "MaxLevel": 0,
+      "InitialMulti": 100,
+      "InitialPrice": 10000,
+      "UpgradesPrices": [],
+      "UpgradesPngs": [],
+      "UpgradesMultipliers": [],
     }
   }
 
@@ -108,6 +116,10 @@ export const ShowInventory = (props) => {
       setEquiped(false);
       setErrorEquip(true);
       return;
+    }
+
+    if (level === itemsUpgrades[item]["MaxLevel"]) {
+      setMax(true);
     }
     props.showPerson();
     props.improvemulti(itemsUpgrades[item]["InitialMulti"]);
@@ -319,6 +331,7 @@ export const ShowInventory = (props) => {
       }
     }
   }, [])
+
 
   return (
     <div>

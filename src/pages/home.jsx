@@ -8,6 +8,8 @@ import {Inventory} from "/src/funcs/inventory";
 import {Status} from "/src/funcs/status";
 import {RendPerso} from "./home/rendperso";
 import {ShowGames} from "/src/funcs/showgames";
+import {Extras} from "/src/funcs/extras";
+
 
 export const Home = () => {
   const [clicks, setClicks] = useState(0);
@@ -15,7 +17,7 @@ export const Home = () => {
   const [spentClicks, setSpentClicks] = useState(0);
   const [armas, setArmas] = useState([]);
   const [armaduras, setArmaduras] = useState([]);
-  const [rebirths, setRebirths] = useState(0);
+  const [rebirths, setRebirths] = useState(1);
   const [spr, setSpr] = useState(0);
   const [multiplier, setMultiplier] = useState(1);
   const [inventoryLimit, setInventoryLimit] = useState({
@@ -32,6 +34,7 @@ export const Home = () => {
   })
 
   const [loaded, setLoaded] = useState(false);
+  const [reseted, setReseted] = useState(false);
   const saveGame = () => {
     //se o expansions sumir, criar condição que verifica se existe
     const gameData = {
@@ -211,25 +214,29 @@ export const Home = () => {
   return (
     <div>
       
-      <LojaMenu buttons={[<button onClick={(e) =>handleAll("ArmorMenu", "GunsMenu", "Armadura", "ArmorMenu-active", e)} value="Armadura">Armaduras</button>, <button onClick={(e) =>handleAll("ArmorMenu", "GunsMenu", "Armadura", "ArmorMenu-active", e)} value="Arma">Armas</button>]} components={[<ArmorsMenu handleBuy={handleBuy} />, <GunsMenu handleBuy={handleBuy} />]} id="Loja"/>
+      <LojaMenu buttons={[<button onClick={(e) =>handleAll("ArmorMenu", "GunsMenu", "Armadura", "ArmorMenu-active", e)} value="Armadura">Armaduras</button>, <button onClick={(e) =>handleAll("ArmorMenu", "GunsMenu", "Armadura", "ArmorMenu-active", e)} value="Arma">Armas</button>, <button>Buffs</button>]} components={[<ArmorsMenu handleBuy={handleBuy} />, <GunsMenu handleBuy={handleBuy} />]} id="Loja"/>
       
-      <LojaMenu buttons={[<button value="Armas" onClick={(e) => handleAll("InvArmadura", "InvArma", "Inv", "ArmorMenu-active", e)}>Armas</button>, <button value="Armaduras" onClick={(e)=>handleAll("InvArma", "InvArmadura", "Inv", "ArmorMenu-active", e)}>Armaduras</button>]}components={[<Inventory armaduras={armaduras} armas={armas} improvemulti={ImproveMultiplier} aproveupdate={UpdateItem} showPerson={handleShowPerso} handleEquip={improveEquiped} armorsEquiped={armorsEquiped} setArmorsEquiped={setArmorsEquiped} setclicks={setClicks} setarmadura={setArmaduras} setarmors={setArmas} multi={multiplier} savegame={saveGame} invcount={inventoryCount} setinvcount={setInventoryCount} setMulti={setMultiplier}/>]} id="Inv"/>
+      <LojaMenu buttons={[<button value="Armas" onClick={(e) => handleAll("InvArmadura", "InvArma", "Inv", "ArmorMenu-active", e)}>Armas</button>, <button value="Armaduras" onClick={(e)=>handleAll("InvArma", "InvArmadura", "Inv", "ArmorMenu-active", e)}>Armaduras</button>]}components={[<Inventory armaduras={armaduras} armas={armas} improvemulti={ImproveMultiplier} aproveupdate={UpdateItem} showPerson={handleShowPerso} handleEquip={improveEquiped} armorsEquiped={armorsEquiped} setArmorsEquiped={setArmorsEquiped} setclicks={setClicks} setarmadura={setArmaduras} setarmors={setArmas} multi={multiplier} savegame={saveGame} invcount={inventoryCount} setinvcount={setInventoryCount} setMulti={setMultiplier} rbr={rebirths} spr={spr} reseted={reseted}/>]} id="Inv"/>
       
-      <LojaMenu components={[<Status status={[`Clicks: ${clicks}`, `Total de clicks: ${totalClicks}`, `Clicks gastos: ${spentClicks}`, `Multiplicador: ${multiplier}`, `Rebirths: ${rebirths}`, `Super Rebirths: ${spr}`]} rebirths={rebirths} spr={spr} setRebirth={setRebirths} setSpr={setSpr} clicks={clicks} setspentclicks={setSpentClicks} improvemultiplier={ImproveMultiplier} multiplier={multiplier} setRB={MakeRB} setclicks={setClicks} expinv={expandInventory}/>]} id="Status"/>
+      <LojaMenu components={[<Status status={[`Clicks: ${clicks}`, `Total de clicks: ${totalClicks}`, `Clicks gastos: ${spentClicks}`, `Multiplicador: ${multiplier}`, `Rebirths: ${rebirths}`, `Super Rebirths: ${spr}`]} rebirths={rebirths} spr={spr} setRebirth={setRebirths} setSpr={setSpr} clicks={clicks} setspentclicks={setSpentClicks} improvemultiplier={ImproveMultiplier} multiplier={multiplier} setRB={MakeRB} setclicks={setClicks} expinv={expandInventory} setInvCount={setInventoryCount} setInvLimit={setInventoryLimit} setR={setReseted}/>]} id="Status"/>
 
       <LojaMenu components={[<ShowGames clicks={clicks}/>]} id="Games"/>
+
+      {/* <LojaMenu components={[<Extras />]} id="Extras"/> */}
       
       <div className="top">
         
         <button onClick={(e) => {
-          handleAll2("Loja", ["Inv", "Status", "Games"], "Loja", "Loja-active", e);
+          handleAll2("Loja", ["Inv", "Status", "Games", "Extras"], "Loja", "Loja-active", e);
         }} value="Loja">Loja</button>
         
-        <button onClick={(e)=>handleAll2("Status", ["Loja", "Inv", "Games"], "Status", "Loja-active", e)} value="Status">Status</button>
+        <button onClick={(e)=>handleAll2("Status", ["Loja", "Inv", "Games", "Extras"], "Status", "Loja-active", e)} value="Status">Status</button>
         
-        <button onClick={(e)=>handleAll2("Inv", ["Loja", "Status", "Games"], "Inv", "Loja-active", e)} value="Inv">Inventário</button>
+        <button onClick={(e)=>handleAll2("Inv", ["Loja", "Status", "Games", "Extras"], "Inv", "Loja-active", e)} value="Inv">Inventário</button>
 
-        <button onClick={(e)=>handleAll2("Games", ["Loja", "Status", "Inv"], "Games", "Loja-active", e)} value="Games">Games</button>
+        <button onClick={(e)=>handleAll2("Games", ["Loja", "Status", "Inv", "Extras"], "Games", "Loja-active", e)} value="Games">Games</button>
+
+        {/* <button onClick={(e)=>handleAll2("Extras", ["Loja", "Status", "Inv", "Games"], "Config", "Loja-active", e)} value="Config">Extras</button> */}
         
       </div>
       

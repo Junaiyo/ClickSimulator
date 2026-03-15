@@ -1,0 +1,11 @@
+.Extras button {
+  background-color: rgb(0, 230, 50);
+  border-radius: 30px;
+  margin-top: 8%;
+}
+
+.Extras {
+  padding-bottom: 3vmax;
+  background-color: #54444E;
+  margin: 5% 5%;
+}

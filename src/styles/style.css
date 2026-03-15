@@ -81,6 +81,7 @@ h1, h2 {
   background-color: darkgreen;
   color: white;
   border: none;
+  /*min-width: 17.3%;*/
   width: 22.3%;
   height: 66%;
   margin-top: 2%;

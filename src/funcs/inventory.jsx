@@ -3,7 +3,7 @@ import "/src/styles/style.css";
 import {ShowInventory} from "./showinventory";
 
 export const Inventory = (props) => {
-  const {armaduras, armas, setarmors, setarmadura, setMulti} = props;
+  const {armaduras, armas, setarmors, setarmadura, setMulti, rbr, spr} = props;
   const [levels, setLevels] = useState({
     "Calça de couro": {
       "level": 0,
@@ -68,6 +68,14 @@ export const Inventory = (props) => {
       "itemType": "armadura",
       "equiped": false,
       "default": "peito5.png"
+    },
+    "Espada do caos": {
+      "level": 0,
+      "max": false,
+      "img": "espada2.png",
+      "itemType": "arma",
+      "equiped": false,
+      "default": "espada2.png"
     }
   })
 
@@ -98,6 +106,7 @@ export const Inventory = (props) => {
     setLevels(newLevels);
     modifyRest(item);
   }
+
 
   const modifyRest = (item) => {
         const type = levels[item]["itemType"];
@@ -135,7 +144,21 @@ export const Inventory = (props) => {
       return;
     }
     localStorage.setItem("armorsData", JSON.stringify(levels));
-  }, [levels, props.armorsEquiped])
+  }, [levels, props.armorsEquiped]);
+
+  useEffect(() => {
+    if (props.reseted) {
+      const newLevels = {...levels};
+      for (let key in newLevels) {
+        newLevels[key]["level"] = 0;
+        newLevels[key]["max"] = false;
+        newLevels[key]["img"] = newLevels[key]["default"];
+        newLevels[key]["equiped"] = false;
+      }
+      setLevels(newLevels);
+      localStorage.setItem("armorsData", JSON.stringify(newLevels));
+    }
+  }, [props.reseted])
   
   return (
     <>
