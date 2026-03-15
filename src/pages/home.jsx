@@ -17,7 +17,7 @@ export const Home = () => {
   const [spentClicks, setSpentClicks] = useState(0);
   const [armas, setArmas] = useState([]);
   const [armaduras, setArmaduras] = useState([]);
-  const [rebirths, setRebirths] = useState(1);
+  const [rebirths, setRebirths] = useState(0);
   const [spr, setSpr] = useState(0);
   const [multiplier, setMultiplier] = useState(1);
   const [inventoryLimit, setInventoryLimit] = useState({
