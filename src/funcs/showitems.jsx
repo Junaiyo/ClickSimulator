@@ -14,15 +14,19 @@ export const ShowItems = (props) => {
     <div>
         <details className="showitems" onToggle={handleClick}>
           <summary>
-            <img src={`assets/${imgName}`} className={`image ${isClicked ? "lojaitem-clicked" : "lojaitem"}`}/>
+            {imgName && <img src={`assets/${imgName}`} className={`image ${isClicked ? "lojaitem-clicked" : "lojaitem"}`}/>}
             
             {item}
           </summary>
-          <p>Preço: <span>{price}</span></p>
-          <p>Multiplicador: <span>{multiplier}</span></p>
+          <p>Preço: <span>{!props.isBuff ? price : `${price}%`}</span></p>
+          {props.mNimo && <p>Preço mínimo: <span>{props.mNimo}</span></p>}
+          {multiplier && <p>Multiplicador: <span>{multiplier}</span></p>}
           <p>Rebirths: <span>{rebirth}</span></p>
           <p>Super Rebirths: <span>{spr}</span></p>
-          <button onClick={()=>props.handleBuy(price, rebirth, spr, item, imgName, type, especify, props.setsuccess, nums)}>Comprar</button>
+          {!props.isBuff &&
+          <button onClick={()=>props.handleBuy(price, rebirth, spr, item, imgName, type, especify, props.setsuccess, nums)}>Comprar</button>}
+          {props.isBuff &&
+          <button onClick={()=>props.handleBuy(price, rebirth, spr, props.time, props.bName, props.mNimo)}>Comprar</button>}
           {success && <p>{success}</p>}
         </details>
     </div>

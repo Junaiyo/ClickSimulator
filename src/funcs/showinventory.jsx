@@ -85,7 +85,7 @@ export const ShowInventory = (props) => {
       "MaxLevel": 1,
       "InitialMulti": 6,
       "InitialPrice": 1000,
-      "UpgradesPrices": [3000, 6000],
+      "UpgradesPrices": [4000, 6000],
       "UpgradesPngs": ["peito5.1.png", "peito5.2.png"],
       "UpgradesMultipliers": [7, 8],
       "Type": 5

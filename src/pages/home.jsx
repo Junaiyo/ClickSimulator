@@ -9,6 +9,7 @@ import {Status} from "/src/funcs/status";
 import {RendPerso} from "./home/rendperso";
 import {ShowGames} from "/src/funcs/showgames";
 import {Extras} from "/src/funcs/extras";
+import {BuffsMenu} from "/src/funcs/menus/buffsmenu";
 
 
 export const Home = () => {
@@ -35,6 +36,16 @@ export const Home = () => {
 
   const [loaded, setLoaded] = useState(false);
   const [reseted, setReseted] = useState(false);
+  const [activeBuff, setActiveBuff] = useState(false);
+  const [maxBuffs, setMaxBuffs] = useState(1);
+  const [buffsActive, setBuffsActive] = useState(0);
+  const buffs = {
+    "2x": () => setMultiplier((prev) =>prev * 2)
+  }
+  const debuffs = {
+    "2x": () => setMultiplier((prev) => prev / 2)
+  }
+  const [time, setTime] = useState(0);
   const saveGame = () => {
     //se o expansions sumir, criar condição que verifica se existe
     const gameData = {
@@ -107,6 +118,15 @@ export const Home = () => {
   }
   
   const handleClick = () => {
+    if (activeBuff) {
+      buffs[activeBuff]();
+      setActiveBuff(false);
+      setTimeout(() => {
+        debuffs[activeBuff]();
+        setTime(0);
+        setBuffsActive((prev) => prev - 1);
+      }, time * 1000)
+    }
     setClicks((prev) => prev + 1 * multiplier);
     setTotalClicks((prev) => prev + 1 * multiplier);
     handleShowClicks();
@@ -214,7 +234,7 @@ export const Home = () => {
   return (
     <div>
       
-      <LojaMenu buttons={[<button onClick={(e) =>handleAll("ArmorMenu", "GunsMenu", "Armadura", "ArmorMenu-active", e)} value="Armadura">Armaduras</button>, <button onClick={(e) =>handleAll("ArmorMenu", "GunsMenu", "Armadura", "ArmorMenu-active", e)} value="Arma">Armas</button>]} components={[<ArmorsMenu handleBuy={handleBuy} />, <GunsMenu handleBuy={handleBuy} />]} id="Loja"/>
+      <LojaMenu buttons={[<button onClick={(e) =>handleAll2("ArmorMenu", ["GunsMenu", "BuffsMenu"], "Armadura", "ArmorMenu-active", e)} value="Armadura">Armaduras</button>, <button onClick={(e) =>handleAll2("GunsMenu", ["ArmorMenu", "BuffsMenu"], "Arma", "ArmorMenu-active", e)} value="Arma">Armas</button>, <button onClick={(e)=>handleAll2("BuffsMenu", ["GunsMenu", "ArmorMenu",], "Buff", "ArmorMenu-active", e)} value="Buff">Buffs</button>]} components={[<ArmorsMenu handleBuy={handleBuy} />, <GunsMenu handleBuy={handleBuy} />, <BuffsMenu clicks={clicks} setClicks={setClicks} spentClicks={spentClicks} setSpentClicks={setSpentClicks} rebirths={rebirths} sprbr={spr} activeBuff={activeBuff} setActiveBuff={setActiveBuff} setTime={setTime} maxBuffs={maxBuffs} setBuffsActive={setBuffsActive} buffsActive={buffsActive}/>]} id="Loja"/>
       
       <LojaMenu buttons={[<button value="Armas" onClick={(e) => handleAll("InvArmadura", "InvArma", "Inv", "ArmorMenu-active", e)}>Armas</button>, <button value="Armaduras" onClick={(e)=>handleAll("InvArma", "InvArmadura", "Inv", "ArmorMenu-active", e)}>Armaduras</button>]}components={[<Inventory armaduras={armaduras} armas={armas} improvemulti={ImproveMultiplier} aproveupdate={UpdateItem} showPerson={handleShowPerso} handleEquip={improveEquiped} armorsEquiped={armorsEquiped} setArmorsEquiped={setArmorsEquiped} setclicks={setClicks} setarmadura={setArmaduras} setarmors={setArmas} multi={multiplier} savegame={saveGame} invcount={inventoryCount} setinvcount={setInventoryCount} setMulti={setMultiplier} rbr={rebirths} spr={spr} reseted={reseted}/>]} id="Inv"/>
       
@@ -222,7 +242,7 @@ export const Home = () => {
 
       <LojaMenu components={[<ShowGames clicks={clicks}/>]} id="Games"/>
 
-      {/* <LojaMenu components={[<Extras />]} id="Extras"/> */}
+      <LojaMenu components={[<Extras />]} id="Extras"/>
       
       <div className="top">
         
@@ -236,7 +256,7 @@ export const Home = () => {
 
         <button onClick={(e)=>handleAll2("Games", ["Loja", "Status", "Inv", "Extras"], "Games", "Loja-active", e)} value="Games">Games</button>
 
-        {/* <button onClick={(e)=>handleAll2("Extras", ["Loja", "Status", "Inv", "Games"], "Config", "Loja-active", e)} value="Config">Extras</button> */}
+        <button onClick={(e)=>handleAll2("Extras", ["Loja", "Status", "Inv", "Games"], "Config", "Loja-active", e)} value="Config">Extras</button>
         
       </div>
       

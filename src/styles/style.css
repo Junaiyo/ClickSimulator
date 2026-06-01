@@ -81,8 +81,7 @@ h1, h2 {
   background-color: darkgreen;
   color: white;
   border: none;
-  /*min-width: 17.3%;*/
-  width: 22.3%;
+  min-width: 17.3%;
   height: 66%;
   margin-top: 2%;
   margin-left: 2%;
@@ -202,8 +201,8 @@ h1, h2 {
 
 .calca {
   bottom: -8%;
-  left: 22%;
-  width: 61%;
+  left: 23.4%;
+  width: 59%;
   height: 50%;
 }
 
