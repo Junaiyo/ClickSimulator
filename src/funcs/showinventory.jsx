@@ -57,8 +57,8 @@ export const ShowInventory = (props) => {
     "Peitoral de ferro": {
       "MaxLevel": 0,
       "InitialMulti": 3,
-      "InitialPrice": 125,
-      "UpgradesPrices": [800],
+      "InitialPrice": 250,
+      "UpgradesPrices": [825],
       "UpgradesPngs": ["peito2.1.png"],
       "UpgradesMultipliers": [4],
       "Type": 2
@@ -66,8 +66,8 @@ export const ShowInventory = (props) => {
     "Peitoral de ouro": {
       "MaxLevel": 0,
       "InitialMulti": 4,
-      "InitialPrice": 200,
-      "UpgradesPrices": [1000],
+      "InitialPrice": 750,
+      "UpgradesPrices": [2150],
       "UpgradesPngs": ["peito3.1.png"],
       "UpgradesMultipliers": [5],
       "Type": 3
@@ -75,8 +75,8 @@ export const ShowInventory = (props) => {
     "Peitoral de diamante": {
       "MaxLevel": 0,
       "InitialMulti": 5,
-      "InitialPrice": 500,
-      "UpgradesPrices": [2500],
+      "InitialPrice": 1500,
+      "UpgradesPrices": [4350],
       "UpgradesPngs": ["peito4.1.png"],
       "UpgradesMultipliers": [6],
       "Type": 4
@@ -84,8 +84,8 @@ export const ShowInventory = (props) => {
     "Peitoral de obsidiana": {
       "MaxLevel": 1,
       "InitialMulti": 6,
-      "InitialPrice": 1000,
-      "UpgradesPrices": [4000, 6000],
+      "InitialPrice": 4125,
+      "UpgradesPrices": [9500, 17500],
       "UpgradesPngs": ["peito5.1.png", "peito5.2.png"],
       "UpgradesMultipliers": [7, 8],
       "Type": 5
@@ -93,7 +93,7 @@ export const ShowInventory = (props) => {
     "Espada do caos": {
       "MaxLevel": 0,
       "InitialMulti": 100,
-      "InitialPrice": 10000,
+      "InitialPrice": 17500,
       "UpgradesPrices": [],
       "UpgradesPngs": [],
       "UpgradesMultipliers": [],

@@ -16,7 +16,7 @@ export const ShowItems = (props) => {
           <summary>
             {imgName && <img src={`assets/${imgName}`} className={`image ${isClicked ? "lojaitem-clicked" : "lojaitem"}`}/>}
             
-            {item}
+           {item}
           </summary>
           <p>Preço: <span>{!props.isBuff ? price : `${price}%`}</span></p>
           {props.mNimo && <p>Preço mínimo: <span>{props.mNimo}</span></p>}
@@ -26,7 +26,7 @@ export const ShowItems = (props) => {
           {!props.isBuff &&
           <button onClick={()=>props.handleBuy(price, rebirth, spr, item, imgName, type, especify, props.setsuccess, nums)}>Comprar</button>}
           {props.isBuff &&
-          <button onClick={()=>props.handleBuy(price, rebirth, spr, props.time, props.bName, props.mNimo)}>Comprar</button>}
+          <button onClick={()=>props.handleBuy(price, rebirth, spr, props.time, props.bName, props.mNimo, props.isPerma, props.iName)}>Comprar</button>}
           {success && <p>{success}</p>}
         </details>
     </div>

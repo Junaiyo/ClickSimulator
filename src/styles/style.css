@@ -123,7 +123,7 @@ h1, h2 {
   top: -500vh;
   left: 0;
   width: 90%;
-  transition: top 1.3s, left 1.3s;
+  transition: top 1.1s, left 1.1s;
 }
 
 .Loja button {
@@ -224,6 +224,10 @@ h1, h2 {
   top: 27%;
 }
 
+#BuffsMenu button {
+  background-color: rgb(215, 0, 0)
+}
+
 @media (min-width: 800px) {
   .top button {
     height: 50%;
@@ -256,11 +260,18 @@ h1, h2 {
   .click {
     height: 9vmax;
     width: 10vmax;
+    transform: translate(0, -24%)
   }
   .click img {
     bottom: 7%;
   }
   .Mouse {
     width: 55%;
+  }
+  .center h2 {
+    height: 0.4em;
+  }
+  .viewclicks {
+    margin-top: 1.1%;
   }
 }

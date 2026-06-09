@@ -34,7 +34,6 @@ export const Adivinha = () => {
   const handleInput = (e) => {
     const value = e.target.value;
     setInitialValue(value);
-    setShowConfirm(true);
     setValor(value);
     if (value > clicks) {
       setShowConfirm("Clicks insuficientes");
@@ -42,9 +41,22 @@ export const Adivinha = () => {
     if (value < 1 || value === "" || value < 50) {
       setShowConfirm("Valor inválido");
     }
+    setShowConfirm(true);
   }
 
   const handleConfirm = () => {
+    //dps eu tiro a duplicata, to sem tempo
+    if (showConfirm !== true) {
+      return;
+    }
+    if (valor > clicks) {
+      setShowConfirm("Clicks insuficientes");
+      return;
+    }
+    if (valor < 1 || valor === "" || valor < 50) {
+      setShowConfirm("Valor inválido");
+      return;
+    }
     let total = items.length;
     selectMultipliers(total);
   }
@@ -102,6 +114,15 @@ export const Adivinha = () => {
       return newVal;
     });
   }
+
+  //se precisar disso mais fazer transformas em função global
+  const handleEnter = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault()
+      handleConfirm();
+    }
+  }
+
   
   return (
     <div className="advgame">
@@ -118,7 +139,7 @@ export const Adivinha = () => {
       <h3 className="animation">Clique em um item</h3>
       {item && <div>
         <h3>selecionado: {item}</h3>
-        <input type="number" placeholder="Quanto você quer gastar" onChange={handleInput} id="InputNum"/>
+        <input type="number" placeholder="Quanto você quer gastar" onChange={handleInput} id="InputNum" onKeyDown={handleEnter}/>
         {showConfirm && showConfirm !== "Clicks insuficientes" && showConfirm !== "Valor inválido" ? <button className="guest-login gameconfirm" onClick={handleConfirm}>Confirmar</button> : <h3>{showConfirm}</h3>}
         {showMulti && <>
           <h3>Seu multiplicador: {showMulti[items.indexOf(item)]}x</h3>

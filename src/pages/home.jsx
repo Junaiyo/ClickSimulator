@@ -1,3 +1,6 @@
+//PROMETO QUE ALGUM DIA MELHORO O CODIGO
+//inclusive sumir com esse monte de props (zustand) e esse componente gigante
+//na próxima update farei algumas melhorias de código
 import React, {useState, useEffect} from 'react';
 import "/src/styles/style.css";
 import {LojaMenu} from "/src/funcs/lojamenu";
@@ -39,6 +42,8 @@ export const Home = () => {
   const [activeBuff, setActiveBuff] = useState(false);
   const [maxBuffs, setMaxBuffs] = useState(1);
   const [buffsActive, setBuffsActive] = useState(0);
+  const [permaBuffs, setPermaBuffs] = useState([]);
+
   const buffs = {
     "2x": () => setMultiplier((prev) =>prev * 2)
   }
@@ -60,7 +65,12 @@ export const Home = () => {
       armorsEquiped: armorsEquiped,
       showPerso: showPerso,
       inventoryLimit: inventoryLimit,
-      inventoryCount: inventoryCount
+      inventoryCount: inventoryCount,
+      activeBuff: activeBuff,
+      maxBuffs: maxBuffs,
+      buffsActive: buffsActive,
+      permaBuffs: permaBuffs
+      
     }
     const jsonData = JSON.stringify(gameData);
     localStorage.setItem("gameData", jsonData);
@@ -70,18 +80,10 @@ export const Home = () => {
     //localStorage.clear();
     const jd = JSON.parse(localStorage.getItem("gameData"));
     if (jd) {
-      setClicks(jd.clicks);
-      setTotalClicks(jd.totalClicks);
-      setSpentClicks(jd.spentClicks);
-      setArmas(jd.armas);
-      setArmaduras(jd.armaduras);
-      setRebirths(jd.rebirths);
-      setSpr(jd.spr);
-      setMultiplier(jd.multiplier);
-      setArmorsEquiped(jd.armorsEquiped);
-      setShowPerso(jd.showPerso);
-      setInventoryLimit(jd.inventoryLimit);
-      setInventoryCount(jd.inventoryCount);
+      const funcs = [setClicks, setTotalClicks, setSpentClicks, setArmas, setArmaduras, setRebirths, setSpr, setMultiplier, setArmorsEquiped, setShowPerso, setInventoryLimit, setInventoryCount, setActiveBuff, setMaxBuffs, setBuffsActive, setPermaBuffs]
+      for (let i = 0; i < funcs.length; i++) {
+        funcs[i](jd[Object.keys(jd)[i]])
+      }
     }
   }
 
@@ -116,8 +118,11 @@ export const Home = () => {
         setShowClicks(false)
       }, 500)
   }
-  
+
+  //...
+  const [gainn, setGain] = useState(1);
   const handleClick = () => {
+    let gain = 1;
     if (activeBuff) {
       buffs[activeBuff]();
       setActiveBuff(false);
@@ -127,9 +132,23 @@ export const Home = () => {
         setBuffsActive((prev) => prev - 1);
       }, time * 1000)
     }
-    setClicks((prev) => prev + 1 * multiplier);
-    setTotalClicks((prev) => prev + 1 * multiplier);
+    let critical = false;
+    //REFATORAR BASEADO NO SISTEMA DE SORTE
+    if (permaBuffs?.includes("ClCritico")) {
+      if (Math.random() < 0.25) {
+        critical = true;
+        gain = 2;
+        setGain(2);
+      }
+    }
+    setClicks((prev) => prev + gain * multiplier);
+    setTotalClicks((prev) => prev + gain * multiplier);
+    //REFATORAR BASEADO NO SISTEMA DE SORTE
     handleShowClicks();
+    //TODo: sistema de impedir autoclicks extremamente rapidos de abusarem de criticos e outras coisas
+    setTimeout(() => {
+      setGain(1);
+    }, 350);
   }
 
   const handleBuy = (price, rb, sbr, name, itemName, type, especify, setMsg, nums) => {
@@ -217,6 +236,9 @@ export const Home = () => {
     setArmorsEquiped([]);
     setShowPerso(false);
     setMultiplier(1);
+    setBuffsActive(0);
+    setActiveBuff(false);
+    setTime(0);
   }
 
   useEffect(() => {
@@ -234,7 +256,7 @@ export const Home = () => {
   return (
     <div>
       
-      <LojaMenu buttons={[<button onClick={(e) =>handleAll2("ArmorMenu", ["GunsMenu", "BuffsMenu"], "Armadura", "ArmorMenu-active", e)} value="Armadura">Armaduras</button>, <button onClick={(e) =>handleAll2("GunsMenu", ["ArmorMenu", "BuffsMenu"], "Arma", "ArmorMenu-active", e)} value="Arma">Armas</button>, <button onClick={(e)=>handleAll2("BuffsMenu", ["GunsMenu", "ArmorMenu",], "Buff", "ArmorMenu-active", e)} value="Buff">Buffs</button>]} components={[<ArmorsMenu handleBuy={handleBuy} />, <GunsMenu handleBuy={handleBuy} />, <BuffsMenu clicks={clicks} setClicks={setClicks} spentClicks={spentClicks} setSpentClicks={setSpentClicks} rebirths={rebirths} sprbr={spr} activeBuff={activeBuff} setActiveBuff={setActiveBuff} setTime={setTime} maxBuffs={maxBuffs} setBuffsActive={setBuffsActive} buffsActive={buffsActive}/>]} id="Loja"/>
+      <LojaMenu buttons={[<button onClick={(e) =>handleAll2("ArmorMenu", ["GunsMenu", "BuffsMenu"], "Armadura", "ArmorMenu-active", e)} value="Armadura">Armaduras</button>, <button onClick={(e) =>handleAll2("GunsMenu", ["ArmorMenu", "BuffsMenu"], "Arma", "ArmorMenu-active", e)} value="Arma">Armas</button>, <button onClick={(e)=>handleAll2("BuffsMenu", ["GunsMenu", "ArmorMenu",], "Buff", "ArmorMenu-active", e)} value="Buff">Buffs</button>]} components={[<ArmorsMenu handleBuy={handleBuy} />, <GunsMenu handleBuy={handleBuy} />, <BuffsMenu clicks={clicks} setClicks={setClicks} spentClicks={spentClicks} setSpentClicks={setSpentClicks} rebirths={rebirths} sprbr={spr} activeBuff={activeBuff} setActiveBuff={setActiveBuff} setTime={setTime} maxBuffs={maxBuffs} setBuffsActive={setBuffsActive} buffsActive={buffsActive} permaBuffs={permaBuffs} setPermaBuffs={setPermaBuffs}/>]} id="Loja"/>
       
       <LojaMenu buttons={[<button value="Armas" onClick={(e) => handleAll("InvArmadura", "InvArma", "Inv", "ArmorMenu-active", e)}>Armas</button>, <button value="Armaduras" onClick={(e)=>handleAll("InvArma", "InvArmadura", "Inv", "ArmorMenu-active", e)}>Armaduras</button>]}components={[<Inventory armaduras={armaduras} armas={armas} improvemulti={ImproveMultiplier} aproveupdate={UpdateItem} showPerson={handleShowPerso} handleEquip={improveEquiped} armorsEquiped={armorsEquiped} setArmorsEquiped={setArmorsEquiped} setclicks={setClicks} setarmadura={setArmaduras} setarmors={setArmas} multi={multiplier} savegame={saveGame} invcount={inventoryCount} setinvcount={setInventoryCount} setMulti={setMultiplier} rbr={rebirths} spr={spr} reseted={reseted}/>]} id="Inv"/>
       
@@ -259,10 +281,11 @@ export const Home = () => {
         <button onClick={(e)=>handleAll2("Extras", ["Loja", "Status", "Inv", "Games"], "Config", "Loja-active", e)} value="Config">Extras</button>
         
       </div>
-      
-      {showClicks && <p className="anm">+{1 * multiplier}</p>}
+
+      <div className="center">
+      {showClicks && <p className="anm">+{gainn * multiplier}</p>}
       <h3 className="viewclicks">Clicks: {clicks}</h3>
-      <h2>Seu personagem:</h2>
+      <h2 className="sPerso" style={{"marginBottom":"0.9em", "transform": "translate(0, -1.9em)"}}>Seu personagem:</h2>
       <div className="rendImages">
       <img src="assets/perso.png" className="image InitialPerson" />
       {showPerso && <RendPerso renders={armorsEquiped}/>}
@@ -270,6 +293,7 @@ export const Home = () => {
       <button className="click" onClick={handleClick}>
         <img src="assets/mouse.png" alt="click" className="Mouse"/>
       </button>
+      </div>
     </div>
   )
 }
