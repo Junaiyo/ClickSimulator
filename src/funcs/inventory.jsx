@@ -76,6 +76,14 @@ export const Inventory = (props) => {
       "itemType": "arma",
       "equiped": false,
       "default": "espada2.png"
+    },
+    "Arco de ferro": {
+      "level": 0,
+      "max": false,
+      "img": "arco2.png",
+      "itemType": "arma",
+      "equiped": false,
+      "default": "arco2.png"
     }
   })
 

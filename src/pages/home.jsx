@@ -66,9 +66,7 @@ export const Home = () => {
       showPerso: showPerso,
       inventoryLimit: inventoryLimit,
       inventoryCount: inventoryCount,
-      activeBuff: activeBuff,
       maxBuffs: maxBuffs,
-      buffsActive: buffsActive,
       permaBuffs: permaBuffs
       
     }
@@ -80,7 +78,7 @@ export const Home = () => {
     //localStorage.clear();
     const jd = JSON.parse(localStorage.getItem("gameData"));
     if (jd) {
-      const funcs = [setClicks, setTotalClicks, setSpentClicks, setArmas, setArmaduras, setRebirths, setSpr, setMultiplier, setArmorsEquiped, setShowPerso, setInventoryLimit, setInventoryCount, setActiveBuff, setMaxBuffs, setBuffsActive, setPermaBuffs]
+      const funcs = [setClicks, setTotalClicks, setSpentClicks, setArmas, setArmaduras, setRebirths, setSpr, setMultiplier, setArmorsEquiped, setShowPerso, setInventoryLimit, setInventoryCount, setMaxBuffs, setPermaBuffs]
       for (let i = 0; i < funcs.length; i++) {
         funcs[i](jd[Object.keys(jd)[i]])
       }
@@ -190,7 +188,8 @@ export const Home = () => {
     setMsg(nums, "Compra realizada com sucesso");
     const data = JSON.parse(localStorage.getItem("gameData")) || {};
     type === "Armaduras" ? data.armaduras = [...armaduras, [name, itemName, type, especify]] : data.armas = [...armas, [name, itemName, type, especify]];
-    data.clicks = data.clicks - price;
+    data.clicks = clicks - price;
+    data.spentClicks = data.spentClicks + price;
     localStorage.setItem("gameData", JSON.stringify(data));
     return;
   }

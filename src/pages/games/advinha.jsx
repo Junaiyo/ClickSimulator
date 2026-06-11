@@ -110,6 +110,7 @@ export const Adivinha = () => {
     setClicks((prev) => {
       const newVal = Math.ceil(prev + expression);
       gameData.clicks = newVal;
+      gameData.spentClicks += Number(initialValue);
       localStorage.setItem("gameData", JSON.stringify(gameData));
       return newVal;
     });

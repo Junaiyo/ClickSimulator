@@ -11,7 +11,8 @@ export const GunsMenu = (props) => {
   ]);
 
   const [bows, __] = useState([
-    ["Arco de madeira", "arco1.png", 50, 2, 0, 0]
+    ["Arco de madeira", "arco1.png", 50, 2, 0, 0],
+    ["Arco de ferro", "arco2.png", 425, 4, 0, 0]
   ]);
 
   const msg1 = swords.map(() => false);

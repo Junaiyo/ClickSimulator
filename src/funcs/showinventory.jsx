@@ -97,6 +97,17 @@ export const ShowInventory = (props) => {
       "UpgradesPrices": [],
       "UpgradesPngs": [],
       "UpgradesMultipliers": [],
+      "notUpgradable": true,
+      "Type": 2
+    },
+    "Arco de ferro": {
+      "MaxLevel": 1,
+      "InitialMulti": 4,
+      "InitialPrice": 425,
+      "UpgradesPrices": [1250, 2500],
+      "UpgradesPngs": ["arco2.1.png", "arco2.2.png"],
+      "UpgradesMultipliers": [6, 8],
+      "Type": 2
     }
   }
 
@@ -118,7 +129,7 @@ export const ShowInventory = (props) => {
       return;
     }
 
-    if (level === itemsUpgrades[item]["MaxLevel"]) {
+    if (itemsUpgrades[item]["notUpgradable"]) {
       setMax(true);
     }
     props.showPerson();

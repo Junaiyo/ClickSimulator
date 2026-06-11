@@ -29,6 +29,9 @@ export const Roleta = () => {
     setClicks((prev) => {
       const newVal = prev - price;
       gameData.clicks = newVal;
+      if (price > 0) {
+      gameData.spentClicks += price;
+      }
       localStorage.setItem("gameData", JSON.stringify(gameData));
       return newVal;
     })

@@ -56,16 +56,16 @@ export const BuffsMenu = (props) => {
     setActiveBuff(buffName);
     setBuffsActive((prev) => prev + 1);
     }
+    const data = JSON.parse(localStorage.getItem("gameData"));
     if (isPerma) {
       setPermaBuffs((prev) => [...prev, iName]);
-      const data = JSON.parse(localStorage.getItem("gameData"));
       data.permaBuffs = [...permaBuffs, iName];
-      data.clicks = clicks - newPrice;
-      data.spentClicks = spentClicks + newPrice;
-      localStorage.setItem("gameData", JSON.stringify(data));
     }
     setClicks((prev) => prev - newPrice);
     setSpentClicks((prev) => prev + newPrice);
+    data.clicks = clicks - newPrice;
+    data.spentClicks = spentClicks + newPrice;
+    localStorage.setItem("gameData", JSON.stringify(data));
     setMessage("Você comprou o buff com sucesso!")
   }
 
