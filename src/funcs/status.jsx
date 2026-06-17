@@ -208,7 +208,7 @@ export const Status = (props) => {
       <button onClick={makeRebirth}>Rebirth</button>
       <button onClick={makeSpRebirth}>Super Rebirth</button>
       <button onClick={showCapInv}>Capacidade inventário</button>
-      <button onClick={makeExpand} style={{"transform": "translateY(-0.5vh)"}}>Expandir inventário</button>
+      <button onClick={makeExpand}>Expandir inventário</button>
       <button className="InfoRebirth" onClick={rebirth}>Requisitos rebirths</button>
       <button className="InfoRebirth" onClick={expandInv}>Requisitos inventário</button>
       {showrebirth &&

@@ -119,7 +119,13 @@ export const Home = () => {
 
   //...
   const [gainn, setGain] = useState(1);
-  const handleClick = () => {
+  const handleClick = (e) => {
+    const elm = document.querySelector(".Mouse");
+    elm.classList.add("ClAnim");
+    setTimeout(() => {
+      elm.classList.remove("ClAnim");
+    }, 100);
+    document
     let gain = 1;
     if (activeBuff) {
       buffs[activeBuff]();
@@ -289,7 +295,7 @@ export const Home = () => {
       <img src="assets/perso.png" className="image InitialPerson" />
       {showPerso && <RendPerso renders={armorsEquiped}/>}
       </div>
-      <button className="click" onClick={handleClick}>
+      <button className="click" onClick={(e)=>handleClick(e)} id="bClick">
         <img src="assets/mouse.png" alt="click" className="Mouse"/>
       </button>
       </div>

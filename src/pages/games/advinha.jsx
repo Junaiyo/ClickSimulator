@@ -3,7 +3,15 @@ import {useNavigate} from "react-router-dom";
 import "/src/styles/adivinha.css";
 
 export const Adivinha = () => {
-  const items = ["uva", "uvaverde", "laranja", "pitaya", "abacate", "abóbora", "banana", "bananaverde", "cupcake", "maçã", "maçaverde", "mamão", "manga", "mangaverde"];
+  const items = ["uva", "uvaverde", "laranja", "pitaya", "abacate", "abobora", "banana", "bananaverde", "cupcake", "maca", "macaverde", "mamao", "manga", "mangaverde"];
+
+  //por algum motivo as imagens com acento no nome não estão renderizando, isso é pra previnir
+  const withAccents = {
+    "maca": "maçã", 
+    "macaverde": "maçã verde",
+    "mamao": "mamão",
+    "abobora": "abóbora"
+  }
 
   const [item, setItem] = useState(null);
   const gameData = JSON.parse(localStorage.getItem("gameData"))
@@ -139,7 +147,7 @@ export const Adivinha = () => {
     </div>
       <h3 className="animation">Clique em um item</h3>
       {item && <div>
-        <h3>selecionado: {item}</h3>
+        <h3>selecionado: {item in withAccents ? withAccents[item] : item}</h3>
         <input type="number" placeholder="Quanto você quer gastar" onChange={handleInput} id="InputNum" onKeyDown={handleEnter}/>
         {showConfirm && showConfirm !== "Clicks insuficientes" && showConfirm !== "Valor inválido" ? <button className="guest-login gameconfirm" onClick={handleConfirm}>Confirmar</button> : <h3>{showConfirm}</h3>}
         {showMulti && <>
